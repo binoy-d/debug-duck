@@ -1,2 +1,4 @@
-[I shouldn't even make this game/  ]
-[The player cant even move!]
+[I dont wanna make this game/I'm gonnna make this game! ]
+[The player movement is broken/The player can move by pressing W and S]
+[Why is the shooting reversed??/Great, now the shooting works!]
+[]
