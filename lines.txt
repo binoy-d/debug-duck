@@ -22,15 +22,15 @@
 3-*It’s totally fine. We can play Smash some other time.* 
 4-*Oh he’s gonna teach you? That’s so cool. I hope you two have lots of fun.*  
 7-*Yeah, I wouldn’t pass up the opportunity to play with a Nintendo Developer either haha.* 
-2-*ahem* 
-2-*Okay, where were we? 
-3-Oh yeah, debugging the horizontal movement! 
+1-*ahem* 
+1-*Okay, where were we? 
+2-Oh yeah, debugging the horizontal movement! 
 2-The problem’s probably here: 
 2+if(false && horzontal) position.x += moveAmount; if(horizontalPressed) position.x += moveAmount / if(horizontalPressed) position.x += moveAmount; if(horizontalPressed) position.x += moveAmount
-3+I can’t compete with him. As a smash player and a partner. / They’re just friends. There’s a reason she’s with me. 
-2+int numMovementAxis = 1; / int numMovementAxis = 2;
+4+I can’t compete with him. As a smash player and a partner. / They’re just friends. There’s a reason she’s with me. 
+5+int numMovementAxis = 1; / int numMovementAxis = 2;
 2+Did he skip work to be with her? He’s gotta have ulterior motives. / He probably just wants to unwind after crunch season.
-2+dettectMoreKeyes(); / detectMoreKeys(); 
+3+dettectMoreKeyes(); / detectMoreKeys(); 
 6+What does she even see in me? I talk to a Rubber Duck. He talks to Masahiro Sakurai. / We tend to be our own worst critic. I’ve gotta be nicer to myself. 
 3-Whew. That took a while.
 3-But we did it Ducky! We’re on our way!
