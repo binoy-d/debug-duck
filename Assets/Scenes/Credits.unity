@@ -574,6 +574,7 @@ MonoBehaviour:
   playGameSequence: 0
   credits: {fileID: 0}
   programmer_sprite: {fileID: 0}
+  paused: {fileID: 0}
 --- !u!4 &1696324121
 Transform:
   m_ObjectHideFlags: 0
@@ -631,9 +632,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDelay: 3
   gc: {fileID: 1696324120}
-  credits: "1 This game was made by \n2 Evan Cheng\n2 Will Busecmi\n2 Matt Busecmi\n2
-    Daniel Binoy\n2 Cynthia Tsao \n2 for the 2020 Global Game Jam \n2 at University
-    of California, Irvine \n2 the number  1 public school according to Money Magazine"
+  credits: "1 This game was made by\n2+Evan Cheng/Design\n2+Will Busecmi/Design\n2+Matt
+    Busecmi/Programming\n2+Daniel Binoy/Programming\n2+Cynthia Tsao/Programing\n2
+    for the 2020 Global Game Jam \n9+at University of California, Irvine/the number
+    1 public school according to Money Magazine\n9+and Remember/Be Kind to Yourself"
   lines: []
 --- !u!4 &1727893223
 Transform:
