@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
             StartCoroutine(Intro());
     }
 
-    private void LoadAllText(string file_name)
+    public void LoadAllText(string file_name)
     {
         StreamReader reader = new StreamReader(file_name);
 

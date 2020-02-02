@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using UnityEngine.SceneManagement; 
 public class CreditsPlayer : MonoBehaviour
 {
     [SerializeField]
@@ -20,6 +21,6 @@ public class CreditsPlayer : MonoBehaviour
         yield return new WaitForSeconds(fadeTime + bannerPopUpDelay);
         banner.enabled = true;
         yield return new WaitForSeconds(bannerDisplayTime);
-        print("done"); 
+        SceneManager.LoadScene("Credits"); 
     }
 }
