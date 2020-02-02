@@ -56,7 +56,6 @@ public class GameController : MonoBehaviour
     public float InstantiateSpeechBubble(string s)
     {
         GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
-        print(sb); 
         sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
         sb.GetComponent<SpeechBubble>().SetText(s.Substring(2));
         return lp.TimeBeforeLine(s);
