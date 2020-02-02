@@ -192,8 +192,6 @@ MonoBehaviour:
   sprite: {fileID: 4871721966095758908}
   isInteractable: 0
   time_to_move_after_hit: 0.8
-  start_color: {r: 1, g: 0, b: 0, a: 0}
-  end_color: {r: 0, g: 1, b: 0.14202738, a: 0}
 --- !u!1 &4871721966489599754
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,8 +332,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 4
-  m_fontSizeBase: 4
+  m_fontSize: 3
+  m_fontSizeBase: 3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
