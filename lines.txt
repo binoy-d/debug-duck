@@ -10,14 +10,14 @@
 -But I’ve been having trouble getting it to move side by side. 
 -I guess this is where you come in, huh Ducky? 
 -So my code goes… 
-+if(horizontalPressed) position.x + moveAmount; / if (horizontalPressed) position.x += moveAmount
++if(horizontalPressed) position.x + moveAmount;/if (horizontalPressed) position.x += moveAmount
 -Oh my god, I’m such an idiot. 
 -This is like the simplest thing. 
 -(And without you Ducky, I probably would’ve taken twice as long…) 
 -Okay deep breaths. Let’s see oh my, the shooting is broken
 -That fire rate is CLEARLY overpowered. 
 -Let’s see, how can we cripple the player?   
-+void update() { reloadCooldown -= Time.time; } / void update () {reloadCooldown -= Time.deltaTime } 
++void update() { reloadCooldown -= Time.time; }/void update () {reloadCooldown -= Time.deltaTime } 
 -There! Now they’re just like me! 
 -Don’t worry, being a mess is endearing. 
 -Or so I’ve been told. 
@@ -32,3 +32,13 @@
 -Okay, where were we? 
 -Oh yeah, debugging the horizontal movement! 
 -The problem’s probably here:
+++if(false && veritcalPressed) position.y += moveAmount; if(verticalPressed) position.y += moveAmount/if(veritcalPressed) position.y += moveAmount; if(verticalPressed) position.y += moveAmount
++I can’t compete with him. As a smash player and a partner./They’re just friends. There’s a reason she’s with me. 
+++Int numMovementAxis = 1;/int numMovementAxis = 2;
++Did he skip work to be with her? He’s gotta have ulterior motives./He probably just wants to unwind after crunch season.
+++dettectMoreKeyes();/detectMoreKeys();
++What does she even see in me? I talk to a Rubber Duck. He talks to Masahiro Sakurai./We tend to be our own worst critic. I’ve gotta be nicer to myself.
+-Whew. That took a while.
+-But we did it Ducky! We’re on our way!
+-Let’s keep it up. Next bug: Sprite Swapping! 
+-Let’s see, it goes 

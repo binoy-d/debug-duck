@@ -42,12 +42,29 @@ public class GameController : MonoBehaviour
         reader.Close();
     }
 
-    private GameObject InstantiateSpeechBubble(string s)
+    private GameObject InstantiateSpeechBubbleGO(string s)
     {
         GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
         sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
         sb.GetComponent<SpeechBubble>().SetText(s.Substring(1));
         return sb;
+    }
+
+    private float InstantiateSpeechBubble(string s)
+    {
+        GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
+        sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
+
+        if (lp.IsSimultaneous(s))
+        {
+            sb.GetComponent<SpeechBubble>().SetText(s.Substring(2));
+            return 0f;
+        }
+        else
+        {
+            sb.GetComponent<SpeechBubble>().SetText(s.Substring(1));
+        }
+        return -1f;
     }
 
     private IEnumerator Wave(int start, int end, float time_btwn)
@@ -57,8 +74,8 @@ public class GameController : MonoBehaviour
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
-                InstantiateSpeechBubble(t);
-                yield return new WaitForSeconds(time_btwn);
+                float time = InstantiateSpeechBubble(t);
+                yield return new WaitForSeconds(time == -1f ? time_btwn : time);
             }
         }
 
@@ -74,7 +91,7 @@ public class GameController : MonoBehaviour
             if (t != "")
             {
                 yield return new WaitForSeconds(3f);
-                sb = InstantiateSpeechBubble(t);
+                sb = InstantiateSpeechBubbleGO(t);
             }
         }
         sb.GetComponent<SpeechBubble>().SetCanMove(false);
@@ -85,7 +102,7 @@ public class GameController : MonoBehaviour
             intro_done = sb == null;
         }
 
-        StartCoroutine(Wave(5, 34, 2f));
+        StartCoroutine(Wave(5, 44, 2f));
 
         yield return null;
     }

@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class LineParser : MonoBehaviour
 {
-    [SerializeField] private string JUMPTO = "&";
-
-    public static LineParser instance = null;
-
-    private void Start()
-    {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(this);
-    }
-
     public string ParseLine(string s)
     {
         if (s.StartsWith("%"))
@@ -28,10 +16,14 @@ public class LineParser : MonoBehaviour
     {
         return s.StartsWith("+");
     }
+
+    public bool IsSimultaneous(string s)
+    {
+        return s[1] == '+';
+    }
 }
 
 /* % ignore
- * & JUMPTO linenumber 
  * + interactable
  * - noninteractable
  */
