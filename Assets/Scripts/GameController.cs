@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject SPEECH_BUBBLE = null;
     [SerializeField] private GameObject FINAL_BUBBLE = null;
+    [SerializeField] private GameObject JukeBox = null;
 
     private List<string> allLines = new List<string>();
 
@@ -28,10 +29,21 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject paused = null;
 
     int number_of_lines;
+    
+    public static GameController instance = null;
 
-    void Awake()
+    void Start()
 
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad((gameObject));
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         lp = GetComponent<LineParser>();
         number_of_lines = 0;
         LoadAllText("lines.txt");
@@ -76,6 +88,7 @@ public class GameController : MonoBehaviour
     private IEnumerator MainGame(int start, int end)
     {
         GameObject fb = null;
+        float tt = 0f;
         for (int i = start; i < end-2; i++)
         {
             string t = lp.ParseLine(allLines[i]);
@@ -89,10 +102,13 @@ public class GameController : MonoBehaviour
                 fb = GameObject.Instantiate(FINAL_BUBBLE);
                 fb.GetComponent<FinalBubble>().SetInteractable(true);
                 fb.GetComponent<FinalBubble>().SetText(t.Substring(2));
-                float time = lp.TimeBeforeLine(t);
-                yield return new WaitForSeconds(time);
+                tt = lp.TimeBeforeLine(t);
             }
         }
+        
+        JukeBox.GetComponent<JukeBox>().Pause();
+        JukeBox.GetComponent<JukeBox>().PlayOminous();
+        yield return new WaitForSeconds(tt);
         
         while(fb != null && !fb.GetComponent<FinalBubble>().GetHit())
         {
@@ -108,7 +124,9 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(time);
             }
         }
-
+        
+        JukeBox.GetComponent<JukeBox>().Pause();
+        JukeBox.GetComponent<JukeBox>().PlayUplifting();
         credits.SetActive(true);
 
         yield return null;
@@ -117,6 +135,8 @@ public class GameController : MonoBehaviour
 
     private IEnumerator Intro()
     {
+        JukeBox.GetComponent<JukeBox>().Pause();
+        JukeBox.GetComponent<JukeBox>().PlayArcade();
         GameObject sb = null;
         for (int i = 0; i < 2; i++)
         {
@@ -198,6 +218,7 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
         GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(true, true);
+        
 
         StartCoroutine(MainGame(28, number_of_lines));
 
