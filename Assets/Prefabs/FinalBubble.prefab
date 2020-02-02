@@ -197,7 +197,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4871721966095758897}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -291,7 +291,7 @@ MonoBehaviour:
   movement_scheme: 0
   sin_y_offset: 0
   sin_freq: 10
-  sin_amp: 1
+  sin_amp: 5
   d_width: 4
   w_scale: 2
   h_scale: 4
