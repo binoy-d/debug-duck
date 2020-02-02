@@ -5,13 +5,10 @@ using UnityEngine;
 public class shakeonimpact : MonoBehaviour
 {
     private bool shaking;
-    [SerializeField]
-    private int shakeTime = 3;
-
-    private int countdown = 3000;
-    private float speed = 1.0f;
-    private float amount = 1.0f;
-
+    private int countdown = 300;
+    private float speed = 20.0f;
+    private float amount = 0.2f;
+    private float oldY;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +19,9 @@ public class shakeonimpact : MonoBehaviour
     void Update()
     {
         if(shaking){
-            transform.position = new Vector3(Mathf.Sin(Time.time * speed) * amount, 0 , 0);
+            float oldX = transform.position[0];
+            float oldZ = transform.position[2];
+            transform.position= new Vector3(oldX, oldY+Mathf.Sin(speed*Time.time)*amount , oldZ);
             if(countdown <= 0){
                 shaking = !shaking;
             }
@@ -31,7 +30,10 @@ public class shakeonimpact : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        shaking = true;
-
+        oldY = transform.position[1];
+        if(!shaking){
+            print("I'm hit!");
+            shaking = true;
+        }
     }
 }

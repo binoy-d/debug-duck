@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class GameController : MonoBehaviour
     private List<string> allLines = new List<string>();
 
     private bool intro_done = false;
+
+    private int proggrammer_health = 1;
 
     private LineParser lp;
     [SerializeField] float TIME_BTWN = 4f;
@@ -91,9 +95,39 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             intro_done = sb == null;
         }
+        intro_done = false;
+        for (int i = 2; i < 7; i++)
+        {
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "")
+            {
+                yield return new WaitForSeconds(3f);
+                sb = InstantiateSpeechBubbleGO(t);
+            }
+        }
+        sb.GetComponent<SpeechBubble>().SetCanMove(false);
+        while (!intro_done)
+        {
+            sb.GetComponent<SpeechBubble>().SetY(0f);
+            yield return new WaitForSeconds(0.5f);
+            intro_done = sb == null;
+        }
 
-        StartCoroutine(Wave(5, 55, TIME_BTWN));
+        StartCoroutine(Wave(7, 55, TIME_BTWN));
 
         yield return null;
+    }
+
+    public void UpdateHealth()
+    {
+        proggrammer_health--;
+    }
+
+    private void Update()
+    {
+        if (proggrammer_health <= 0)
+        {
+            SceneManager.LoadScene("Testing");
+        }
     }
 }
