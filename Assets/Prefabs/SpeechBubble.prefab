@@ -248,8 +248,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 4
-  m_fontSizeBase: 4
+  m_fontSize: 3
+  m_fontSizeBase: 3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -374,6 +374,7 @@ MonoBehaviour:
   b_collider: {fileID: 2904400486977228204}
   sprite: {fileID: 2904400486977228195}
   isInteractable: 0
+  time_to_move_after_hit: 2
 --- !u!50 &2904400487748923941
 Rigidbody2D:
   serializedVersion: 4

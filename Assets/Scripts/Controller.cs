@@ -10,14 +10,22 @@ public class Controller : MonoBehaviour
     private float speed = 10;
     [SerializeField]
     private GameObject _bullet;
-    
+    [SerializeField]
+    private GameObject gameController;
+
     private GameObject current;
 
     private bool can_move_horizontal = false;
     private bool can_move_vertical = false;
     private float shoot_delay = 0f;
     private float t = 0f;
+    
+    private AudioSource fireData;
 
+    void Start(){
+        fireData = GetComponent<AudioSource>();
+        
+    }
     void Update()
     {
         t -= Time.deltaTime;
@@ -26,6 +34,7 @@ public class Controller : MonoBehaviour
 
         if (fire && t <= 0f)
         {
+            fireData.Play(0);
             Vector3 pos = transform.position;
             pos[2] = 0;
             Shoot(pos);
@@ -64,9 +73,18 @@ public class Controller : MonoBehaviour
         can_move_horizontal = a;
         can_move_vertical = b;
     }
-
+    /*
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag!="Bullet"){
+            gameController.GetComponent<GameController>().UpdateHealth();
+        }
+    }
+    */
     public void SetShootDelay(float d)
     {
         shoot_delay = d;
     }
+
+    
 }

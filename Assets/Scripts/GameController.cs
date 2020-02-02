@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject SPEECH_BUBBLE = null;
+    [SerializeField] private GameObject FINAL_BUBBLE = null;
 
     private List<string> allLines = new List<string>();
 
@@ -16,22 +17,27 @@ public class GameController : MonoBehaviour
     private int programmer_health = 6;
 
     private LineParser lp;
-    [SerializeField] float TIME_BTWN = 4f;
-    public bool playGameSequence = true;  
+    [SerializeField] float shoot_delay = 0.8f;
+    public bool playGameSequence = true;
+
+    [SerializeField] GameObject credits;
+
+    private float waitTime = 0f;
+
+    [SerializeField] GameObject programmer_sprite = null;
+
     void Awake()
 
     {
         lp = GetComponent<LineParser>();
         LoadAllText("lines.txt");
 
-        //StartCoroutine(Wave(0, allLines.Count, 5f));
-        //Intro sequence
-        //StartCoroutine(Wave(0, 5, 6f));
-
         if(playGameSequence)
             StartCoroutine(Intro());
     }
-
+    public int getHealth(){
+        return programmer_health;
+    }
     public void LoadAllText(string file_name)
     {
         StreamReader reader = new StreamReader(file_name);
@@ -50,6 +56,7 @@ public class GameController : MonoBehaviour
         GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
         sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
         sb.GetComponent<SpeechBubble>().SetText(s.Substring(2));
+        waitTime = lp.TimeBeforeLine(s);
         return sb;
     }
 
@@ -61,17 +68,33 @@ public class GameController : MonoBehaviour
         return lp.TimeBeforeLine(s);
     }
 
-    private IEnumerator Wave(int start, int end, float time_btwn)
+    private IEnumerator MainGame(int start, int end)
     {
         for (int i = start; i < end; i++)
         {
             string t = lp.ParseLine(allLines[i]);
-            if (t != "")
+            if (t != "" && i != end - 3)
             {
                 float time = InstantiateSpeechBubble(t);
                 yield return new WaitForSeconds(time);
             }
+            else if (i == end-3)
+            {
+                GameObject fb = GameObject.Instantiate(FINAL_BUBBLE);
+                fb.GetComponent<FinalBubble>().SetInteractable(true);
+                fb.GetComponent<FinalBubble>().SetText(t.Substring(2));
+                float time = lp.TimeBeforeLine(t) + 5;
+                yield return new WaitForSeconds(time);
+            }
         }
+        while (programmer_sprite.transform.position.x < 16f)
+        {
+            programmer_sprite.transform.position = new Vector2(programmer_sprite.transform.position.x + Time.deltaTime * 25f,
+                programmer_sprite.transform.position.y);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        credits.SetActive(true);
 
         yield return null;
     }
@@ -85,8 +108,8 @@ public class GameController : MonoBehaviour
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
-                yield return new WaitForSeconds(3f);
                 sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
             }
         }
         sb.GetComponent<SpeechBubble>().SetCanMove(false);
@@ -103,11 +126,10 @@ public class GameController : MonoBehaviour
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
-                yield return new WaitForSeconds(3f);
                 sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
             }
         }
-        sb.GetComponent<SpeechBubble>().SetCanMove(false);
         while (!intro_done)
         {
             sb.GetComponent<SpeechBubble>().SetY(0f);
@@ -121,23 +143,23 @@ public class GameController : MonoBehaviour
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
-                yield return new WaitForSeconds(3f);
                 sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
             }
         }
         while (sb != null)
         {
             yield return new WaitForSeconds(0.5f);
         }
-        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetShootDelay(0.8f);
+        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetShootDelay(shoot_delay);
 
         for (int i = 14; i < 28; i++)
         {
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
-                yield return new WaitForSeconds(3f);
                 sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
             }
         }
         while (sb != null)
@@ -146,7 +168,7 @@ public class GameController : MonoBehaviour
         }
         GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(true, true);
 
-        StartCoroutine(Wave(28, 55, TIME_BTWN));
+        StartCoroutine(MainGame(28, 58));
 
         yield return null;
     }

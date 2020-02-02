@@ -13,7 +13,7 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] float pause_time = 0.5f;
     private bool can_move = true;
 
-    [SerializeField] float spd = 5f;
+    [SerializeField] protected float spd = 5f;
     [SerializeField] int movement_scheme = 0;
     private int num_schemes = 3;
 
@@ -23,25 +23,27 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] float sin_amp = 1f;
 
     [Header("ResizingBubble")]
-    [SerializeField] private float d_width = 4f;
-    [SerializeField] private float w_scale = 2f;
-    [SerializeField] private float h_scale = 4f;
-    [SerializeField] private TextMeshPro text_mesh;
-    private float width;
-    private float height;
+    [SerializeField] protected float d_width = 4f;
+    [SerializeField] protected float w_scale = 2f;
+    [SerializeField] protected float h_scale = 4f;
+    [SerializeField] protected TextMeshPro text_mesh;
+    protected float width;
+    protected float height;
 
-    [SerializeField] private Transform bubble;
-    [SerializeField] private BoxCollider2D b_collider;
-    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] protected Transform bubble;
+    [SerializeField] protected BoxCollider2D b_collider;
+    [SerializeField] protected SpriteRenderer sprite;
 
     [Header("State")]
-    [SerializeField] private bool isInteractable = false;
-    private string TEXT = "";
-    private string current_txt = "";
+    [SerializeField] protected bool isInteractable = false;
+    protected string TEXT = "";
+    protected string current_txt = "";
     private bool use_alt = false;
     private string alt_txt = "";
 
-    private bool done_typing = false;
+    protected bool done_typing = false;
+    [SerializeField] private float time_to_move_after_hit = 2f;
+    protected bool hit = false;
     
 
     private string[] lines;
@@ -54,6 +56,12 @@ public class SpeechBubble : MonoBehaviour
 
     void Update()
     {
+        if (hit)
+            time_to_move_after_hit -= Time.deltaTime;
+
+        if (time_to_move_after_hit <= 0f)
+            can_move = true;
+
         Move();
         UpdateText();
     }
@@ -133,13 +141,13 @@ public class SpeechBubble : MonoBehaviour
         }
     }
 
-    private IEnumerator TypeText()
+    protected IEnumerator TypeText()
     {
         yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < TEXT.Length; i++)
         {
             current_txt += TEXT[i];
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.03f);
         }
         yield return new WaitForSeconds(pause_time);
         done_typing = true;
@@ -158,7 +166,8 @@ public class SpeechBubble : MonoBehaviour
         {
             Destroy(other.gameObject);
             //Destroy(gameObject);
-            can_move = true;
+            can_move = false;
+            hit = true;
             AltText();
             SetInteractable(false);
             sprite.color = Color.green;
