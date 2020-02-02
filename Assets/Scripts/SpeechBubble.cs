@@ -7,7 +7,7 @@ public class SpeechBubble : MonoBehaviour
 {
     [Header("Spawning")]
     [SerializeField] float maxY = 3f;
-    private float startY = 0f;
+    public float startY = 0f;
 
     [Header("Movement")]
     [SerializeField] float pause_time = 0.5f;
@@ -32,6 +32,7 @@ public class SpeechBubble : MonoBehaviour
 
     [SerializeField] private Transform bubble;
     [SerializeField] private BoxCollider2D b_collider;
+    [SerializeField] private SpriteRenderer sprite;
 
     [Header("State")]
     [SerializeField] private bool isInteractable = false;
@@ -41,7 +42,7 @@ public class SpeechBubble : MonoBehaviour
     private string alt_txt = "";
 
     private bool done_typing = false;
-
+    
     void Start()
     {
         startY = Random.value * maxY*2 - maxY;
@@ -107,19 +108,26 @@ public class SpeechBubble : MonoBehaviour
         can_move = canmove;
     }
 
+    public void SetY(float y)
+    {
+        startY = y;
+        sin_y_offset = startY;
+        transform.position = new Vector2(transform.position.x, y);
+    }
+
     public void SetInteractable(bool interactable)
     {
         isInteractable = interactable;
-
+        b_collider.enabled = true;
         if (!isInteractable)
         {
-            b_collider.enabled = false;
             movement_scheme = 0;
         }
         else
         {
-            b_collider.enabled = true;
             movement_scheme = (int)(Random.value * num_schemes + 1) % num_schemes;
+
+            sprite.color = Color.red;
         }
     }
 
@@ -139,18 +147,33 @@ public class SpeechBubble : MonoBehaviour
 
     private void AltText()
     {
-        current_txt = alt_txt;
+        use_alt = true ;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Bullet")
+        if (other.tag == "Bullet" && isInteractable)
         {
             Destroy(other.gameObject);
             //Destroy(gameObject);
             can_move = true;
             AltText();
             SetInteractable(false);
+            sprite.color = Color.green;
+        }
+        else if (other.tag == "End")
+            Destroy(gameObject);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "TopBoundary")
+        {
+            SetY(startY - 1f);
+        }
+        else if (collision.tag == "BotBoundary")
+        {
+            SetY(startY + 1f);
         }
     }
 }

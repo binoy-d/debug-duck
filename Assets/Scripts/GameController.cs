@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator Wave(int start, int end, float time_btwn)
     {
-        for (int i = start; i <= end; i++)
+        for (int i = start; i < end; i++)
         {
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
@@ -80,11 +80,12 @@ public class GameController : MonoBehaviour
         sb.GetComponent<SpeechBubble>().SetCanMove(false);
         while (!intro_done)
         {
+            sb.GetComponent<SpeechBubble>().SetY(0f);
             yield return new WaitForSeconds(0.5f);
             intro_done = sb == null;
         }
 
-        StartCoroutine(Wave(5, 10, 2f));
+        StartCoroutine(Wave(5, 34, 2f));
 
         yield return null;
     }

@@ -3,9 +3,32 @@
 -There better not be a hidden camera in this.
 -She wouldn’t do that to me, would she? 
 +She’s mocking me. What kind of anniversary gift is a rubber duck?/She just wants me to succeed in my career. Her programmer friends told her good things about Rubber Duck Debugging.
-&jump main sequence
+%&jump main sequence
 %/menu screen loop
 %main sequence
-Nice, I got shooting to work, first try.
-But how can I get you to move left to right?
-Lets see, the code is
+-Nice, I got shooting to work - first try.
+-But I’ve been having trouble getting it to move side by side. 
+-I guess this is where you come in, huh Ducky? 
+-So my code goes… 
++if(horizontalPressed) position.x + moveAmount; / if (horizontalPressed) position.x += moveAmount
+-Oh my god, I’m such an idiot. 
+-This is like the simplest thing. 
+-(And without you Ducky, I probably would’ve taken twice as long…) 
+-Okay deep breaths. Let’s see oh my, the shooting is broken
+-That fire rate is CLEARLY overpowered. 
+-Let’s see, how can we cripple the player?   
++void update() { reloadCooldown -= Time.time; } / void update () {reloadCooldown -= Time.deltaTime } 
+-There! Now they’re just like me! 
+-Don’t worry, being a mess is endearing. 
+-Or so I’ve been told. 
+-Okay, Duck, time to shoot for the stars. Can we-
+-One second I gotta take this call. 
+-(Yeah of course, don’t worry about it.) 
+-(No no no, don’t apologize.)
+-(It’s totally fine. We can play Smash some other time.) 
+-(Oh he’s gonna teach you? That’s so cool. I hope you two have lots of fun.)  
+-(Yeah, I wouldn’t pass up the opportunity to play with a Nintendo Developer either haha.) 
+-*ahem* 
+-Okay, where were we? 
+-Oh yeah, debugging the horizontal movement! 
+-The problem’s probably here:
