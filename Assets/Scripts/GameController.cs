@@ -13,7 +13,8 @@ public class GameController : MonoBehaviour
 
     private LineParser lp;
 
-    void Start()
+    public bool playGameSequence = true;  
+    void Awake()
     {
         lp = GetComponent<LineParser>();
         LoadAllText("lines.txt");
@@ -21,12 +22,9 @@ public class GameController : MonoBehaviour
         //StartCoroutine(Wave(0, allLines.Count, 5f));
         //Intro sequence
         //StartCoroutine(Wave(0, 5, 6f));
-        StartCoroutine(Intro());
-    }
-    
-    void Update()
-    {
-        
+
+        if(playGameSequence)
+            StartCoroutine(Intro());
     }
 
     private void LoadAllText(string file_name)
@@ -50,9 +48,10 @@ public class GameController : MonoBehaviour
         return sb;
     }
 
-    private float InstantiateSpeechBubble(string s)
+    public float InstantiateSpeechBubble(string s)
     {
         GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
+        print(sb); 
         sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
 
         if (lp.IsSimultaneous(s))
