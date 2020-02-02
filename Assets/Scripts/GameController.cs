@@ -8,12 +8,13 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject SPEECH_BUBBLE = null;
+    [SerializeField] private GameObject FINAL_BUBBLE = null;
 
     private List<string> allLines = new List<string>();
 
     private bool intro_done = false;
 
-    private int programmer_health = 30;
+    private int programmer_health = 6;
 
     private LineParser lp;
     [SerializeField] float shoot_delay = 0.8f;
@@ -70,7 +71,7 @@ public class GameController : MonoBehaviour
         for (int i = start; i < end; i++)
         {
             string t = lp.ParseLine(allLines[i]);
-            if (t != "")
+            if (t != "" && i != end - 3)
             {
                 float time = InstantiateSpeechBubble(t);
                 yield return new WaitForSeconds(time);
