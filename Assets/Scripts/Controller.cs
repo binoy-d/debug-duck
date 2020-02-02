@@ -98,7 +98,7 @@ public class Controller : MonoBehaviour
         can_shoot = false;
         SetCanMove(false, false);
 
-        transform.position = new Vector2(-8, -2);
-        transform.localScale = new Vector2(1, 1);
+        transform.position = new Vector2(-9f, -2f);
+        transform.localScale = new Vector2(1.9f, 1.9f);
     }
 }

@@ -23,8 +23,8 @@
 3-*Oh he’s gonna teach you? That’s so cool. I hope you two have lots of fun.*  
 4-*Yeah, I wouldn’t pass up the opportunity to play with a Nintendo Developer either haha.* 
 1-*ahem* 
-1-*Okay, where were we? 
-2-Oh yeah, debugging the horizontal movement! 
+3-*Okay, where were we? 
+3-Oh yeah, debugging the horizontal movement! 
 1-The problem’s probably here: 
 2+if(false && horzontal) position.x += moveAmount; if(horizontalPressed) position.x += moveAmount / if(horizontalPressed) position.x += moveAmount; if(horizontalPressed) position.x += moveAmount
 4+I can’t compete with him. As a smash player and a partner. / They’re just friends. There’s a reason she’s with me. 
