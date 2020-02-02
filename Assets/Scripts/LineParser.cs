@@ -14,12 +14,12 @@ public class LineParser : MonoBehaviour
 
     public bool LineIsInteractable(string s)
     {
-        return s.StartsWith("+");
+        return s.Substring(1).StartsWith("+");
     }
 
-    public bool IsSimultaneous(string s)
+    public float TimeBeforeLine(string s)
     {
-        return s[1] == '+';
+        return (float)(int.Parse(s[0] + ""));
     }
 }
 

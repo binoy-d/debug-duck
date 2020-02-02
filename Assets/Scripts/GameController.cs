@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
 
     private LineParser lp;
 
+    [SerializeField] float TIME_BTWN = 4f;
+
     void Start()
     {
         lp = GetComponent<LineParser>();
@@ -46,7 +48,7 @@ public class GameController : MonoBehaviour
     {
         GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
         sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
-        sb.GetComponent<SpeechBubble>().SetText(s.Substring(1));
+        sb.GetComponent<SpeechBubble>().SetText(s.Substring(2));
         return sb;
     }
 
@@ -54,17 +56,8 @@ public class GameController : MonoBehaviour
     {
         GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
         sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
-
-        if (lp.IsSimultaneous(s))
-        {
-            sb.GetComponent<SpeechBubble>().SetText(s.Substring(2));
-            return 0f;
-        }
-        else
-        {
-            sb.GetComponent<SpeechBubble>().SetText(s.Substring(1));
-        }
-        return -1f;
+        sb.GetComponent<SpeechBubble>().SetText(s.Substring(2));
+        return lp.TimeBeforeLine(s);
     }
 
     private IEnumerator Wave(int start, int end, float time_btwn)
@@ -75,7 +68,7 @@ public class GameController : MonoBehaviour
             if (t != "")
             {
                 float time = InstantiateSpeechBubble(t);
-                yield return new WaitForSeconds(time == -1f ? time_btwn : time);
+                yield return new WaitForSeconds(time);
             }
         }
 
@@ -85,7 +78,7 @@ public class GameController : MonoBehaviour
     private IEnumerator Intro()
     {
         GameObject sb = null;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 2; i++)
         {
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
@@ -102,7 +95,7 @@ public class GameController : MonoBehaviour
             intro_done = sb == null;
         }
 
-        StartCoroutine(Wave(5, 44, 2f));
+        StartCoroutine(Wave(5, 55, TIME_BTWN));
 
         yield return null;
     }
