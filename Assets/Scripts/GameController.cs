@@ -78,6 +78,14 @@ public class GameController : MonoBehaviour
                 float time = InstantiateSpeechBubble(t);
                 yield return new WaitForSeconds(time);
             }
+            else if (i == end-3)
+            {
+                GameObject fb = GameObject.Instantiate(FINAL_BUBBLE);
+                fb.GetComponent<FinalBubble>().SetInteractable(true);
+                fb.GetComponent<FinalBubble>().SetText(t.Substring(2));
+                float time = lp.TimeBeforeLine(t) + 5;
+                yield return new WaitForSeconds(time);
+            }
         }
         while (programmer_sprite.transform.position.x < 16f)
         {
@@ -85,8 +93,7 @@ public class GameController : MonoBehaviour
                 programmer_sprite.transform.position.y);
             yield return new WaitForSeconds(0.1f);
         }
-
-        //Instantiate(credits, GameObject.Find("Canvas").transform);
+        
         credits.SetActive(true);
 
         yield return null;
@@ -123,7 +130,6 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(waitTime);
             }
         }
-        sb.GetComponent<SpeechBubble>().SetCanMove(false);
         while (!intro_done)
         {
             sb.GetComponent<SpeechBubble>().SetY(0f);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class SpeechBubble : MonoBehaviour
+public class FinalBubble : MonoBehaviour
 {
     [Header("Spawning")]
     [SerializeField] float maxY = 3f;
@@ -13,7 +13,7 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] float pause_time = 0.5f;
     private bool can_move = true;
 
-    [SerializeField] protected float spd = 5f;
+    [SerializeField] protected float spd = 1f;
     [SerializeField] int movement_scheme = 0;
     private int num_schemes = 3;
 
@@ -39,17 +39,19 @@ public class SpeechBubble : MonoBehaviour
     protected string TEXT = "";
     protected string current_txt = "";
     private bool use_alt = false;
-    private string alt_txt = "";
+    //private string alt_txt = "";
+    private string[] alt_txt;
+    private int curr_txt = 0;
 
     protected bool done_typing = false;
-    [SerializeField] private float time_to_move_after_hit = 2f;
+    [SerializeField] private float time_to_move_after_hit = 0.8f;
     protected bool hit = false;
     
-
     private string[] lines;
+
     void Start()
     {
-        startY = Random.value * maxY*2 - maxY;
+        startY = Random.value * maxY * 2 - maxY;
         sin_y_offset = startY;
         transform.position = new Vector2(transform.position.x, startY);
     }
@@ -60,7 +62,11 @@ public class SpeechBubble : MonoBehaviour
             time_to_move_after_hit -= Time.deltaTime;
 
         if (time_to_move_after_hit <= 0f)
+        {
             can_move = true;
+            hit = false;
+            time_to_move_after_hit = 0.8f;
+        }
 
         Move();
         UpdateText();
@@ -79,13 +85,20 @@ public class SpeechBubble : MonoBehaviour
         else if (movement_scheme == 1)
             transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp * Mathf.Sin(angle));
         else if (movement_scheme == 2)
-            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp/Mathf.PI * Mathf.Asin(Mathf.Sin(angle)));
+            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp / Mathf.PI * Mathf.Asin(Mathf.Sin(angle)));
     }
 
     private void UpdateText()
     {
         if (use_alt)
-            current_txt = alt_txt;
+        {
+            current_txt = alt_txt[++curr_txt];
+            use_alt = false;
+            if (curr_txt+1  == alt_txt.Length)
+            {
+                sprite.color = Color.green;
+            }
+        }
 
         if (text_mesh.text != current_txt)
         {
@@ -93,23 +106,17 @@ public class SpeechBubble : MonoBehaviour
             width = text_mesh.preferredWidth > d_width ? d_width : text_mesh.preferredWidth;
             height = text_mesh.preferredHeight;
 
-            Vector2 new_size = new Vector2(width*w_scale, height*h_scale);
+            Vector2 new_size = new Vector2(width * w_scale, height * h_scale);
             bubble.localScale = new_size;
         }
     }
 
     public void SetText(string txt)
     {
-        if (isInteractable)
-        {
-            lines = txt.Split('/');
-            TEXT = lines[0];
-            alt_txt = lines[1];
-        }
-        else
-        {
-            TEXT = txt;
-        }
+        alt_txt = txt.Split('/');
+        TEXT = alt_txt[0];
+        curr_txt = 0;
+        use_alt = false;
         StartCoroutine(TypeText());
     }
 
@@ -147,7 +154,7 @@ public class SpeechBubble : MonoBehaviour
         for (int i = 0; i < TEXT.Length; i++)
         {
             current_txt += TEXT[i];
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(pause_time);
         done_typing = true;
@@ -157,20 +164,25 @@ public class SpeechBubble : MonoBehaviour
 
     private void AltText()
     {
-        use_alt = true ;
+        if (curr_txt + 1 == alt_txt.Length)
+        {
+            SetInteractable(false);
+        }
+        else
+        {
+            use_alt = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Bullet" && isInteractable && done_typing)
+        if (other.tag == "Bullet" && isInteractable && done_typing && !hit)
         {
             Destroy(other.gameObject);
-            //Destroy(gameObject);
             can_move = false;
             hit = true;
             AltText();
-            SetInteractable(false);
-            sprite.color = Color.green;
+            //SetInteractable(false);
         }
         else if (other.tag == "End")
         {
