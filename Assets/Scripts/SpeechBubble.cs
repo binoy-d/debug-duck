@@ -42,6 +42,8 @@ public class SpeechBubble : MonoBehaviour
     private string alt_txt = "";
 
     private bool done_typing = false;
+    [SerializeField] private float time_to_move_after_hit = 2f;
+    private bool hit = false;
     
 
     private string[] lines;
@@ -54,6 +56,12 @@ public class SpeechBubble : MonoBehaviour
 
     void Update()
     {
+        if (hit)
+            time_to_move_after_hit -= Time.deltaTime;
+
+        if (time_to_move_after_hit <= 0f)
+            can_move = true;
+
         Move();
         UpdateText();
     }
@@ -158,7 +166,8 @@ public class SpeechBubble : MonoBehaviour
         {
             Destroy(other.gameObject);
             //Destroy(gameObject);
-            can_move = true;
+            can_move = false;
+            hit = true;
             AltText();
             SetInteractable(false);
             sprite.color = Color.green;

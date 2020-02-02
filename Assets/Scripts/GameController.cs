@@ -17,7 +17,10 @@ public class GameController : MonoBehaviour
 
     private LineParser lp;
     [SerializeField] float TIME_BTWN = 4f;
-    public bool playGameSequence = true;  
+    public bool playGameSequence = true;
+
+    [SerializeField] GameObject credits;
+
     void Awake()
 
     {
@@ -72,6 +75,8 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(time);
             }
         }
+
+        Instantiate(credits, GameObject.Find("Canvas").transform);
 
         yield return null;
     }
@@ -146,7 +151,7 @@ public class GameController : MonoBehaviour
         }
         GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(true, true);
 
-        StartCoroutine(Wave(28, 55, TIME_BTWN));
+        StartCoroutine(Wave(28, 58, TIME_BTWN));
 
         yield return null;
     }
