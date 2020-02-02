@@ -43,6 +43,8 @@ public class SpeechBubble : MonoBehaviour
 
     private bool done_typing = false;
     
+
+    private string lines;
     void Start()
     {
         startY = Random.value * maxY*2 - maxY;
@@ -92,7 +94,7 @@ public class SpeechBubble : MonoBehaviour
     {
         if (isInteractable)
         {
-            string[] lines = txt.Split('/');
+            lines = txt.Split('/');
             TEXT = lines[0];
             alt_txt = lines[1];
         }
