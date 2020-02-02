@@ -3,34 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class SpeechBubble : MonoBehaviour
+public class SpeechBubbleUI : MonoBehaviour
 {
-    [Header("Spawning")]
-    [SerializeField] float maxY = 3f;
-    private float startY = 0f;
-
     [Header("Movement")]
     [SerializeField] float pause_time = 0.5f;
     private bool can_move = false;
 
     [SerializeField] float spd = 5f;
-    [SerializeField] int movement_scheme = 0;
-    private int num_schemes = 2;
-
+    private RectTransform position;
+    
     private float angle = 0f;
     [SerializeField] float sin_y_offset = 0f;
     [SerializeField] float sin_freq = 10f;
     [SerializeField] float sin_amp = 1f;
 
     [Header("ResizingBubble")]
-    [SerializeField] private float d_width = 4f;
-    [SerializeField] private float w_scale = 2f;
-    [SerializeField] private float h_scale = 4f;
-    private TextMeshPro text_mesh;
+    [SerializeField] private float d_width = 5.5f;
+    [SerializeField] private float offset = 1f;
+    private TextMeshProUGUI text_mesh;
     private float width;
     private float height;
 
-    private Transform bubble;
+    private RectTransform bubble;
     private BoxCollider2D b_collider;
 
     [Header("State")]
@@ -42,21 +36,16 @@ public class SpeechBubble : MonoBehaviour
 
     void Start()
     {
-        text_mesh = transform.GetChild(1).GetComponent<TextMeshPro>();
+        position = GetComponent<RectTransform>();
+        text_mesh = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         text_mesh.text = "";
-        bubble = transform.GetChild(0).GetComponent<Transform>();
-        b_collider = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        bubble = transform.GetChild(0).GetComponent<RectTransform>();
+        b_collider = GetComponent<BoxCollider2D>();
 
         if (!isInteractable)
             b_collider.enabled = false;
-
-        startY = Random.value * maxY*2 - maxY;
-        sin_y_offset = startY;
-        transform.position = new Vector2(transform.position.x, startY);
-
-        movement_scheme = (int)(Random.value * num_schemes + 1) % num_schemes;
     }
-
+    
     void Update()
     {
         Move();
@@ -70,11 +59,7 @@ public class SpeechBubble : MonoBehaviour
 
         angle += sin_freq * Time.deltaTime;
         angle = angle % 360;
-
-        if (movement_scheme == 0)
-            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp * Mathf.Sin(angle));
-        else if (movement_scheme == 1)
-            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp/Mathf.PI * Mathf.Asin(Mathf.Sin(angle)));
+        position.anchoredPosition = new Vector2(position.anchoredPosition.x - spd*Time.deltaTime, sin_y_offset + sin_amp*Mathf.Sin(angle));
     }
 
     private void UpdateText()
@@ -88,8 +73,9 @@ public class SpeechBubble : MonoBehaviour
             width = text_mesh.preferredWidth > d_width ? d_width : text_mesh.preferredWidth;
             height = text_mesh.preferredHeight;
 
-            Vector2 new_size = new Vector2(width*w_scale, height*h_scale);
-            bubble.localScale = new_size;
+            Vector2 new_size = new Vector2(width + offset, height + offset);
+            bubble.sizeDelta = new_size;
+            b_collider.size = new_size;
         }
     }
 
