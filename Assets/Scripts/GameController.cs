@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
 
     private bool intro_done = false;
 
-    private int proggrammer_health = 1;
+    private int programmer_health = 6;
 
     private LineParser lp;
     [SerializeField] float TIME_BTWN = 4f;
@@ -76,6 +76,7 @@ public class GameController : MonoBehaviour
         yield return null;
     }
 
+
     private IEnumerator Intro()
     {
         GameObject sb = null;
@@ -96,6 +97,7 @@ public class GameController : MonoBehaviour
             intro_done = sb == null;
         }
         intro_done = false;
+
         for (int i = 2; i < 7; i++)
         {
             string t = lp.ParseLine(allLines[i]);
@@ -112,22 +114,59 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             intro_done = sb == null;
         }
+        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(false, true);
 
-        StartCoroutine(Wave(7, 55, TIME_BTWN));
+        for (int i = 7; i < 14; i++)
+        {
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "")
+            {
+                yield return new WaitForSeconds(3f);
+                sb = InstantiateSpeechBubbleGO(t);
+            }
+        }
+        while (sb != null)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetShootDelay(0.8f);
+
+        for (int i = 14; i < 28; i++)
+        {
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "")
+            {
+                yield return new WaitForSeconds(3f);
+                sb = InstantiateSpeechBubbleGO(t);
+            }
+        }
+        while (sb != null)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(true, true);
+
+        StartCoroutine(Wave(28, 55, TIME_BTWN));
 
         yield return null;
     }
 
     public void UpdateHealth()
     {
-        proggrammer_health--;
+        programmer_health--;
     }
 
     private void Update()
     {
-        if (proggrammer_health <= 0)
+        if (programmer_health <= 0)
         {
-            SceneManager.LoadScene("Testing");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        //DEBUG CONTROLS
+        if (Input.GetKeyDown(KeyCode.RightBracket))
+            Time.timeScale *= 2;
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
+            Time.timeScale *= 0.5f;
     }
 }
