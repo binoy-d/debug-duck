@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] GameObject credits;
 
+    private float waitTime = 0f;
+
     void Awake()
 
     {
@@ -53,6 +55,7 @@ public class GameController : MonoBehaviour
         GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
         sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
         sb.GetComponent<SpeechBubble>().SetText(s.Substring(2));
+        waitTime = lp.TimeBeforeLine(s);
         return sb;
     }
 
@@ -90,8 +93,8 @@ public class GameController : MonoBehaviour
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
-                yield return new WaitForSeconds(3f);
                 sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
             }
         }
         sb.GetComponent<SpeechBubble>().SetCanMove(false);
@@ -108,8 +111,8 @@ public class GameController : MonoBehaviour
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
-                yield return new WaitForSeconds(3f);
                 sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
             }
         }
         sb.GetComponent<SpeechBubble>().SetCanMove(false);
@@ -126,8 +129,8 @@ public class GameController : MonoBehaviour
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
-                yield return new WaitForSeconds(3f);
                 sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
             }
         }
         while (sb != null)
@@ -141,8 +144,8 @@ public class GameController : MonoBehaviour
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
-                yield return new WaitForSeconds(3f);
                 sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
             }
         }
         while (sb != null)
