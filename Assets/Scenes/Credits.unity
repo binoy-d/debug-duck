@@ -467,6 +467,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1300624832
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459028, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834682334325459051, guid: c24f0605d960f6e4a9de58b5947cf5ca,
+        type: 3}
+      propertyPath: m_Name
+      value: Boundaries
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c24f0605d960f6e4a9de58b5947cf5ca, type: 3}
 --- !u!1 &1696324119
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,11 +625,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dea03d1cac7c394a9739c781c57353b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 2
+  delay: 4
   gc: {fileID: 1696324120}
   credits: "This game was made by \nEvan Cheng\nWill Busecmi\nMatt Busecmi\nDaniel
     Binoy\nCynthia Tsao \nfor the 2020 Global Game Jam \nat University of California,
-    Irvine \n3 the number 1 public school according to Money Magazine"
+    Irvine \nthe number 1 public school according to Money Magazine"
   lines: []
 --- !u!4 &1727893223
 Transform:
