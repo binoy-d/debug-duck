@@ -14,7 +14,7 @@ public class JukeBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -29,6 +29,13 @@ public class JukeBox : MonoBehaviour
     public void PlayUplifting()
     {
         _uplifting.Play();
+    }
+
+    public void Pause()
+    {
+        _arcade.Pause();
+        _ominous.Pause();
+        _uplifting.Pause();
     }
     
 }
