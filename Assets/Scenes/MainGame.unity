@@ -1237,6 +1237,9 @@ MonoBehaviour:
   speed: 10
   _bullet: {fileID: 426173922065527998, guid: d68c2fd8e9853a94b94a4acc29a5fd05, type: 3}
   gameController: {fileID: 1781297908}
+  can_move_horizontal: 0
+  can_move_vertical: 0
+  girl: {fileID: 21300000, guid: df733ea61b25e4d4191ebacc7ee50f7d, type: 3}
 --- !u!212 &1349555767
 SpriteRenderer:
   m_ObjectHideFlags: 0

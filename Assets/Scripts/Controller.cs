@@ -15,12 +15,15 @@ public class Controller : MonoBehaviour
 
     private GameObject current;
 
-    private bool can_move_horizontal = false;
-    private bool can_move_vertical = false;
+    [SerializeField] private bool can_move_horizontal = false;
+    [SerializeField] private bool can_move_vertical = false;
     private float shoot_delay = 0f;
     private float t = 0f;
     
     private AudioSource fireData;
+
+    [SerializeField] private Sprite girl;
+    private bool can_shoot = true;
 
     void Start(){
         fireData = GetComponent<AudioSource>();
@@ -65,6 +68,8 @@ public class Controller : MonoBehaviour
 
     private void Shoot(Vector3 t)
     {
+        if (!can_shoot)
+            return;
         current = Instantiate(_bullet,t,Quaternion.identity);
     }
 
@@ -86,5 +91,14 @@ public class Controller : MonoBehaviour
         shoot_delay = d;
     }
 
-    
+    public void ChangeSprite()
+    {
+        GetComponent<SpriteRenderer>().sprite = girl;
+        GetComponent<SpriteRenderer>().flipX = false;
+        can_shoot = false;
+        SetCanMove(false, false);
+
+        transform.position = new Vector2(-8, -2);
+        transform.localScale = new Vector2(1, 1);
+    }
 }

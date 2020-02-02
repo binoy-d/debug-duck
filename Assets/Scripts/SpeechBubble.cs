@@ -188,11 +188,16 @@ public class SpeechBubble : MonoBehaviour
     {
         if (collision.tag == "TopBoundary")
         {
-            SetY(startY - 1f);
+            SetY(startY - 0.5f);
         }
         else if (collision.tag == "BotBoundary")
         {
-            SetY(startY + 1f);
+            SetY(startY + 0.5f);
         }
+    }
+
+    public bool GetHit()
+    {
+        return hit;
     }
 }

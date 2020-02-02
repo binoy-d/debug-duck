@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1495957186137106762
 Transform:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4871721966095758897}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -296,7 +296,7 @@ MonoBehaviour:
   h_scale: 4
   text_mesh: {fileID: 4871721966489599732}
   bubble: {fileID: 4871721966095758898}
-  b_collider: {fileID: 2032056885962835277}
+  b_collider: {fileID: 4871721966095758899}
   sprite: {fileID: 4871721966095758908}
   isInteractable: 0
   time_to_move_after_hit: 0.8
