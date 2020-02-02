@@ -26,7 +26,9 @@ public class Controller : MonoBehaviour
         transform.position += (movement * Time.deltaTime * speed);
 
         bool fire = Input.GetKeyDown("space");
-        if (fire) { Shoot(transform.position); }
+        Vector3 pos = transform.position;
+        pos[2] = 0;
+        if (fire) { Shoot(pos); }
         
     }
 
