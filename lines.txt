@@ -4,7 +4,7 @@
 4-But I’ve been having trouble getting it to move side by side. 
 4-I guess this is where you come in, huh Ducky? 
 2-So my code goes… 
-6+if(horizontalPressed) position.x + moveAmount; / if (horizontalPressed) position.x += moveAmount
+0+if(horizontalPressed) position.x + moveAmount; / if (horizontalPressed) position.x += moveAmount
 4-Oh, I can’t believe I missed that. 
 4-This is like the simplest thing. 
 4-(And without you Ducky, I probably would’ve taken twice as long…) 

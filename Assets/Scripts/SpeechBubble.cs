@@ -43,6 +43,8 @@ public class SpeechBubble : MonoBehaviour
 
     private bool done_typing = false;
     
+
+    private string lines;
     void Start()
     {
         startY = Random.value * maxY*2 - maxY;
@@ -92,7 +94,7 @@ public class SpeechBubble : MonoBehaviour
     {
         if (isInteractable)
         {
-            string[] lines = txt.Split('/');
+            lines = txt.Split('/');
             TEXT = lines[0];
             alt_txt = lines[1];
         }
@@ -152,7 +154,7 @@ public class SpeechBubble : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Bullet" && isInteractable)
+        if (other.tag == "Bullet" && isInteractable && done_typing)
         {
             Destroy(other.gameObject);
             //Destroy(gameObject);
@@ -163,6 +165,8 @@ public class SpeechBubble : MonoBehaviour
         }
         else if (other.tag == "End")
             Destroy(gameObject);
+        else if (other.tag == "Bullet" && isInteractable)
+            Destroy(other.gameObject);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
