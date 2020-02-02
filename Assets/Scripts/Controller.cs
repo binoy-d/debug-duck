@@ -11,7 +11,8 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private GameObject _bullet;
     [SerializeField]
-    public  GameObject programmer;
+    private GameObject gameController;
+
     private GameObject current;
 
     private bool can_move_horizontal = false;
@@ -68,7 +69,7 @@ public class Controller : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag!="Bullet"){
-            programmer.UpdateHealth();
+            gameController.GetComponent<GameController>().UpdateHealth();
         }
     }
     public void SetShootDelay(float d)
