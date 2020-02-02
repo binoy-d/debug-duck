@@ -35,7 +35,9 @@ public class GameController : MonoBehaviour
         if(playGameSequence)
             StartCoroutine(Intro());
     }
-
+    public int getHealth(){
+        return programmer_health;
+    }
     public void LoadAllText(string file_name)
     {
         StreamReader reader = new StreamReader(file_name);
