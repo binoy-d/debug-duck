@@ -96,6 +96,7 @@ public class Controller : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = girl;
         GetComponent<SpriteRenderer>().flipX = false;
         can_shoot = false;
+        SetCanMove(false, false);
 
         transform.position = new Vector2(-8, -2);
         transform.localScale = new Vector2(1, 1);

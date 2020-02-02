@@ -33,8 +33,8 @@ public class GameController : MonoBehaviour
 
     {
         lp = GetComponent<LineParser>();
+        number_of_lines = 0;
         LoadAllText("lines.txt");
-        number_of_lines = allLines.Capacity;
 
         if(playGameSequence)
             StartCoroutine(Intro());
@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour
         {
             allLines.Add(line);
             line = reader.ReadLine();
+            number_of_lines++;
         } while (line != null);
         reader.Close();
     }
