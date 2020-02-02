@@ -12,15 +12,10 @@ public class GameController : MonoBehaviour
     private bool intro_done = false;
 
     private LineParser lp;
-
-<<<<<<< HEAD
+    [SerializeField] float TIME_BTWN = 4f;
     public bool playGameSequence = true;  
     void Awake()
-=======
-    [SerializeField] float TIME_BTWN = 4f;
 
-    void Start()
->>>>>>> dae0897ca4ba4eea2f0478f7b6100e9d57a5fec5
     {
         lp = GetComponent<LineParser>();
         LoadAllText("lines.txt");

@@ -12,7 +12,6 @@ public class FinaleManager : MonoBehaviour
     void Start()
     {
         startFinale(); 
-        //Invoke("beep", 3f); 
     }
 
     public void startFinale()
