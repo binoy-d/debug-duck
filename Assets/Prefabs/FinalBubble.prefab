@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4424096599371380039}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 4871721966397802936}
@@ -287,11 +287,10 @@ MonoBehaviour:
   maxY: 3
   startY: 0
   pause_time: 0.5
-  spd: 1
+  spd: 0.5
   movement_scheme: 0
   sin_y_offset: 0
-  sin_freq: 10
-  sin_amp: 5
+  sin_amp: 3
   d_width: 4
   w_scale: 2
   h_scale: 4
@@ -301,6 +300,7 @@ MonoBehaviour:
   sprite: {fileID: 4871721966095758908}
   isInteractable: 0
   time_to_move_after_hit: 0.8
+  black: {fileID: 0}
 --- !u!1 &4871721966489599754
 GameObject:
   m_ObjectHideFlags: 0
