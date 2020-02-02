@@ -47,14 +47,15 @@ public class FinalBubble : MonoBehaviour
     protected bool done_typing = false;
     [SerializeField] private float time_to_move_after_hit = 0.8f;
     protected bool hit = false;
+    private bool complete = false;
     
     private string[] lines;
 
-    [SerializeField] private GameObject black;
+    [SerializeField] private Image black;
 
     void Start()
     {
-        black = GameObject.FindGameObjectWithTag("BlackScreen");
+        black = GameObject.FindGameObjectWithTag("BlackScreen").GetComponent<Image>();
         startY = Random.value * maxY * 2 - maxY;
         sin_y_offset = startY;
         transform.position = new Vector2(transform.position.x, startY);
@@ -92,9 +93,18 @@ public class FinalBubble : MonoBehaviour
 
     private IEnumerator FadeBlack()
     {
-        black.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
-        black.GetComponent<Image>().CrossFadeAlpha(1, 0.3f, false);
-        black.GetComponent<Image>().CrossFadeAlpha(0, 0.3f, false);
+        while (black.color.a < 1)
+        {
+            black.color = new Color(black.color.r,black.color.g,black.color.b, black.color.a+0.1f);
+            yield return new WaitForSeconds(0.05f);
+        }
+        yield return new WaitForSeconds(0.5f);
+        GameObject.Find("debug_duck_64").GetComponent<Controller>().ChangeSprite();
+        while (black.color.a > 0)
+        {
+            black.color = new Color(black.color.r, black.color.g, black.color.b, black.color.a - 0.1f);
+            yield return new WaitForSeconds(0.05f);
+        }
         yield return null;
     }
 
@@ -107,9 +117,7 @@ public class FinalBubble : MonoBehaviour
             if (curr_txt+1  == alt_txt.Length)
             {
                 sprite.color = Color.green;
-            }
-            else if (curr_txt == alt_txt.Length -3)
-            {
+                complete = true;
                 StartCoroutine(FadeBlack());
             }
         }
@@ -220,5 +228,10 @@ public class FinalBubble : MonoBehaviour
         {
             SetY(startY + 1f);
         }
+    }
+
+    public bool GetHit()
+    {
+        return complete;
     }
 }

@@ -36,7 +36,7 @@ public class ThoughtBubbleController : MonoBehaviour
 
         velocity = new Vector3(newX,newY);
         if(m_Collider.bounds.Contains(transform.position+velocity*Time.deltaTime*speed)){
-            print("yes, i want to move");
+            //print("yes, i want to move");
             transform.position+=velocity*Time.deltaTime*speed;
         }
        

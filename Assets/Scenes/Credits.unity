@@ -397,7 +397,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   _bullet: {fileID: 426173922065527998, guid: d68c2fd8e9853a94b94a4acc29a5fd05, type: 3}
-  gameController: {fileID: 0}
+  gameController: {fileID: 1696324119}
+  can_move_horizontal: 1
+  can_move_vertical: 1
 --- !u!212 &619381908
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -792,7 +794,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1876058199
 GameObject:

@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
 
     private bool intro_done = false;
 
-    private int programmer_health = 6;
+    private int programmer_health = 30;
 
     private LineParser lp;
     [SerializeField] float shoot_delay = 0.8f;
@@ -27,11 +27,14 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject programmer_sprite = null;
     [SerializeField] GameObject paused = null;
 
+    int number_of_lines;
+
     void Awake()
 
     {
         lp = GetComponent<LineParser>();
         LoadAllText("lines.txt");
+        number_of_lines = allLines.Capacity;
 
         if(playGameSequence)
             StartCoroutine(Intro());
@@ -72,7 +75,7 @@ public class GameController : MonoBehaviour
     private IEnumerator MainGame(int start, int end)
     {
         GameObject fb = null;
-        for (int i = start; i < end; i++)
+        for (int i = start; i < end-2; i++)
         {
             string t = lp.ParseLine(allLines[i]);
             if (t != "" && i != end - 3)
@@ -85,14 +88,24 @@ public class GameController : MonoBehaviour
                 fb = GameObject.Instantiate(FINAL_BUBBLE);
                 fb.GetComponent<FinalBubble>().SetInteractable(true);
                 fb.GetComponent<FinalBubble>().SetText(t.Substring(2));
-                float time = lp.TimeBeforeLine(t) + 5;
+                float time = lp.TimeBeforeLine(t);
                 yield return new WaitForSeconds(time);
             }
         }
         
-        while(fb != null)
+        while(fb != null && !fb.GetComponent<FinalBubble>().GetHit())
         {
             yield return new WaitForSeconds(0.1f);
+        }
+
+        for (int i = end-2; i < end; i++)
+        {
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "")
+            {
+                float time = InstantiateSpeechBubble(t);
+                yield return new WaitForSeconds(time);
+            }
         }
 
         credits.SetActive(true);
@@ -120,7 +133,6 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             intro_done = sb == null;
         }
-        intro_done = false;
 
         for (int i = 2; i < 7; i++)
         {
@@ -131,11 +143,10 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(waitTime);
             }
         }
-        while (!intro_done)
+        while (sb != null && !sb.GetComponent<SpeechBubble>().GetHit())
         {
             sb.GetComponent<SpeechBubble>().SetY(0f);
             yield return new WaitForSeconds(0.5f);
-            intro_done = sb == null;
         }
         GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(false, true);
 
@@ -148,7 +159,7 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(waitTime);
             }
         }
-        while (sb != null)
+        while (sb != null && !sb.GetComponent<SpeechBubble>().GetHit())
         {
             yield return new WaitForSeconds(0.5f);
         }
@@ -181,7 +192,7 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(waitTime);
             }
         }
-        while (sb != null)
+        while (sb != null && !sb.GetComponent<SpeechBubble>().GetHit())
         {
             yield return new WaitForSeconds(0.5f);
         }
