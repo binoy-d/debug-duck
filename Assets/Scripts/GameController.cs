@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
 
     private bool intro_done = false;
 
-    private int programmer_health = 30;
+    private int programmer_health = 6;
 
     private LineParser lp;
     [SerializeField] float shoot_delay = 0.8f;
@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour
         }
         lp = GetComponent<LineParser>();
         number_of_lines = 0;
-        LoadAllText("lines.txt");
+        LoadAllText("Assets/lines.txt");
 
         if(playGameSequence)
             StartCoroutine(Intro());
@@ -234,12 +234,18 @@ public class GameController : MonoBehaviour
     {
         if (programmer_health <= 0)
         {
+            programmer_health = 6;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(Intro());
         }
 
         //DEBUG CONTROLS
+
         if (Input.GetKeyDown(KeyCode.RightBracket))
-            Time.timeScale *= 2;
+        {
+            float f = Time.timeScale * 2;
+            Time.timeScale = f >= 100f ? 100f : f;
+        }
         if (Input.GetKeyDown(KeyCode.LeftBracket))
             Time.timeScale *= 0.5f;
     }

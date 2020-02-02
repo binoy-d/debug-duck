@@ -60,7 +60,7 @@ public class Controller : MonoBehaviour
         Vector3 movement = new Vector3(horizontal, vertical, 0);
 
         Vector3 unmaxed = transform.position + (movement * Time.deltaTime * speed);
-        Vector3 maxed = new Vector3(Mathf.Min(Mathf.Max(unmaxed[0], -8.25f), 8.25f),
+        Vector3 maxed = new Vector3(Mathf.Min(Mathf.Max(unmaxed[0], -8.25f), 0),
             Mathf.Min(Mathf.Max(unmaxed[1], -4.5f), 4.5f), 0);
 
         transform.position = maxed;

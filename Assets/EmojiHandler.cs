@@ -16,7 +16,8 @@ public class EmojiHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<SpriteRenderer>().sprite = sprites[health-1];
-        health = GameObject.Find("GameController").GetComponent<GameController>().getHealth();
+
+            GetComponent<SpriteRenderer>().sprite = sprites[health - 1];
+            health = GameObject.Find("GameController").GetComponent<GameController>().getHealth();
     }
 }
