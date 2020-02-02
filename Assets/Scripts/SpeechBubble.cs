@@ -162,8 +162,14 @@ public class SpeechBubble : MonoBehaviour
             sprite.color = Color.green;
         }
         else if (other.tag == "End")
+        {
+            if (isInteractable)
+            {
+                GameObject.Find("GameController").GetComponent<GameController>().UpdateHealth();
+            }
             Destroy(gameObject);
-        else if (other.tag == "Bullet" && isInteractable)
+        }
+        else if (other.tag == "Bullet")
             Destroy(other.gameObject);
     }
 
