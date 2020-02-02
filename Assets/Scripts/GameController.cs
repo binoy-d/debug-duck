@@ -13,25 +13,23 @@ public class GameController : MonoBehaviour
 
     private bool intro_done = false;
 
-    private int programmer_health = 6;
+    private int programmer_health = 30;
 
     private LineParser lp;
-    [SerializeField] float TIME_BTWN = 4f;
+    [SerializeField] float shoot_delay = 0.8f;
     public bool playGameSequence = true;
 
     [SerializeField] GameObject credits;
 
     private float waitTime = 0f;
 
+    [SerializeField] GameObject programmer_sprite = null;
+
     void Awake()
 
     {
         lp = GetComponent<LineParser>();
         LoadAllText("lines.txt");
-
-        //StartCoroutine(Wave(0, allLines.Count, 5f));
-        //Intro sequence
-        //StartCoroutine(Wave(0, 5, 6f));
 
         if(playGameSequence)
             StartCoroutine(Intro());
@@ -67,7 +65,7 @@ public class GameController : MonoBehaviour
         return lp.TimeBeforeLine(s);
     }
 
-    private IEnumerator Wave(int start, int end, float time_btwn)
+    private IEnumerator MainGame(int start, int end)
     {
         for (int i = start; i < end; i++)
         {
@@ -78,8 +76,15 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(time);
             }
         }
+        while (programmer_sprite.transform.position.x < 16f)
+        {
+            programmer_sprite.transform.position = new Vector2(programmer_sprite.transform.position.x + Time.deltaTime * 25f,
+                programmer_sprite.transform.position.y);
+            yield return new WaitForSeconds(0.1f);
+        }
 
-        Instantiate(credits, GameObject.Find("Canvas").transform);
+        //Instantiate(credits, GameObject.Find("Canvas").transform);
+        credits.SetActive(true);
 
         yield return null;
     }
@@ -137,7 +142,7 @@ public class GameController : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
         }
-        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetShootDelay(0.8f);
+        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetShootDelay(shoot_delay);
 
         for (int i = 14; i < 28; i++)
         {
@@ -154,7 +159,7 @@ public class GameController : MonoBehaviour
         }
         GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(true, true);
 
-        StartCoroutine(Wave(28, 58, TIME_BTWN));
+        StartCoroutine(MainGame(28, 58));
 
         yield return null;
     }
