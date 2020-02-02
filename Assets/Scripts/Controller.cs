@@ -19,7 +19,13 @@ public class Controller : MonoBehaviour
     private bool can_move_vertical = false;
     private float shoot_delay = 0f;
     private float t = 0f;
+    
+    private AudioSource fireData;
 
+    void Start(){
+        fireData = GetComponent<AudioSource>();
+        
+    }
     void Update()
     {
         t -= Time.deltaTime;
@@ -28,6 +34,7 @@ public class Controller : MonoBehaviour
 
         if (fire && t <= 0f)
         {
+            fireData.Play(0);
             Vector3 pos = transform.position;
             pos[2] = 0;
             Shoot(pos);
