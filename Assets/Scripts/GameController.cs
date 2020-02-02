@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     private float waitTime = 0f;
 
     [SerializeField] GameObject programmer_sprite = null;
+    [SerializeField] GameObject paused = null;
 
     void Awake()
 
@@ -89,7 +90,7 @@ public class GameController : MonoBehaviour
         }
         while (programmer_sprite.transform.position.x < 16f)
         {
-            programmer_sprite.transform.position = new Vector2(programmer_sprite.transform.position.x + Time.deltaTime * 25f,
+            programmer_sprite.transform.position = new Vector2(programmer_sprite.transform.position.x + Time.deltaTime * 50f,
                 programmer_sprite.transform.position.y);
             yield return new WaitForSeconds(0.1f);
         }
@@ -155,6 +156,24 @@ public class GameController : MonoBehaviour
 
         for (int i = 14; i < 28; i++)
         {
+            if (i == 18)
+            {
+                while (programmer_sprite.transform.position.x < 16f)
+                {
+                    programmer_sprite.transform.position = new Vector2(programmer_sprite.transform.position.x + Time.deltaTime * 50f,
+                        programmer_sprite.transform.position.y);
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+            else if (i == 23)
+            {
+                while (programmer_sprite.transform.position.x > 9.3f)
+                {
+                    programmer_sprite.transform.position = new Vector2(programmer_sprite.transform.position.x - Time.deltaTime * 50f,
+                        programmer_sprite.transform.position.y);
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
             string t = lp.ParseLine(allLines[i]);
             if (t != "")
             {
@@ -190,5 +209,11 @@ public class GameController : MonoBehaviour
             Time.timeScale *= 2;
         if (Input.GetKeyDown(KeyCode.LeftBracket))
             Time.timeScale *= 0.5f;
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+        paused.SetActive(Time.timeScale == 0f);
     }
 }
