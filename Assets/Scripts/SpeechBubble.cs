@@ -17,9 +17,9 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] int movement_scheme = 0;
     private int num_schemes = 3;
 
-    private float angle = 0f;
+    //private float angle = 0f;
     [SerializeField] float sin_y_offset = 0f;
-    [SerializeField] float sin_freq = 10f;
+    //[SerializeField] float sin_freq = 10f;
     [SerializeField] float sin_amp = 1f;
 
     [Header("ResizingBubble")]
@@ -71,15 +71,15 @@ public class SpeechBubble : MonoBehaviour
         if (!can_move || !done_typing)
             return;
 
-        angle += sin_freq * Time.deltaTime;
-        angle = angle % 360;
+        //angle += sin_freq * Time.deltaTime;
+        //angle = angle % 360;
 
         if (movement_scheme == 0)
             transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset);
         else if (movement_scheme == 1)
-            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp * Mathf.Sin(angle));
+            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp * Mathf.Sin(transform.position.x));
         else if (movement_scheme == 2)
-            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp/Mathf.PI * Mathf.Asin(Mathf.Sin(angle)));
+            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp/Mathf.PI * Mathf.Asin(Mathf.Sin(transform.position.x)));
     }
 
     private void UpdateText()
@@ -135,7 +135,7 @@ public class SpeechBubble : MonoBehaviour
         }
         else
         {
-            movement_scheme = (int)(Random.value * num_schemes + 1) % num_schemes;
+            movement_scheme = (int)(Random.Range(1,num_schemes));
 
             sprite.color = Color.red;
         }
