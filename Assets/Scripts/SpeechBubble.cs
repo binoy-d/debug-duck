@@ -44,7 +44,7 @@ public class SpeechBubble : MonoBehaviour
     private bool done_typing = false;
     
 
-    private string lines;
+    private string[] lines;
     void Start()
     {
         startY = Random.value * maxY*2 - maxY;
