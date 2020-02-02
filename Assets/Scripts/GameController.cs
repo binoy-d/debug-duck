@@ -71,6 +71,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator MainGame(int start, int end)
     {
+        GameObject fb = null;
         for (int i = start; i < end; i++)
         {
             string t = lp.ParseLine(allLines[i]);
@@ -81,20 +82,19 @@ public class GameController : MonoBehaviour
             }
             else if (i == end-3)
             {
-                GameObject fb = GameObject.Instantiate(FINAL_BUBBLE);
+                fb = GameObject.Instantiate(FINAL_BUBBLE);
                 fb.GetComponent<FinalBubble>().SetInteractable(true);
                 fb.GetComponent<FinalBubble>().SetText(t.Substring(2));
                 float time = lp.TimeBeforeLine(t) + 5;
                 yield return new WaitForSeconds(time);
             }
         }
-        while (programmer_sprite.transform.position.x < 16f)
+        
+        while(fb != null)
         {
-            programmer_sprite.transform.position = new Vector2(programmer_sprite.transform.position.x + Time.deltaTime * 50f,
-                programmer_sprite.transform.position.y);
             yield return new WaitForSeconds(0.1f);
         }
-        
+
         credits.SetActive(true);
 
         yield return null;
