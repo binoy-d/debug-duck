@@ -366,7 +366,7 @@ MonoBehaviour:
   movement_scheme: 0
   sin_y_offset: 0
   sin_freq: 10
-  sin_amp: 1
+  sin_amp: 3
   d_width: 4
   w_scale: 2
   h_scale: 5
