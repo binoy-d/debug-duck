@@ -1630,7 +1630,7 @@ MonoBehaviour:
     type: 3}
   FINAL_BUBBLE: {fileID: 4871721966397802943, guid: ab92a6067793d4640a898b324f1a83b5,
     type: 3}
-  shoot_delay: 0.8
+  shoot_delay: 1.2
   playGameSequence: 1
   credits: {fileID: 1302345604}
   programmer_sprite: {fileID: 1200792548}
