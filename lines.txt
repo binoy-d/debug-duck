@@ -20,12 +20,12 @@
 2-*Yeah of course, don’t worry about it.* 
 2-*No no no, don’t apologize.*
 3-*It’s totally fine. We can play Smash some other time.* 
-4-*Oh he’s gonna teach you? That’s so cool. I hope you two have lots of fun.*  
-7-*Yeah, I wouldn’t pass up the opportunity to play with a Nintendo Developer either haha.* 
+3-*Oh he’s gonna teach you? That’s so cool. I hope you two have lots of fun.*  
+4-*Yeah, I wouldn’t pass up the opportunity to play with a Nintendo Developer either haha.* 
 1-*ahem* 
 1-*Okay, where were we? 
 2-Oh yeah, debugging the horizontal movement! 
-2-The problem’s probably here: 
+1-The problem’s probably here: 
 2+if(false && horzontal) position.x += moveAmount; if(horizontalPressed) position.x += moveAmount / if(horizontalPressed) position.x += moveAmount; if(horizontalPressed) position.x += moveAmount
 4+I can’t compete with him. As a smash player and a partner. / They’re just friends. There’s a reason she’s with me. 
 5+int numMovementAxis = 1; / int numMovementAxis = 2;
