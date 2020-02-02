@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpeechSpawner : MonoBehaviour
 {
-    public float delay;
+    public float startDelay;
     public GameController gc; 
     [TextArea]
     public string credits;
@@ -12,9 +12,7 @@ public class SpeechSpawner : MonoBehaviour
     private void Start()
     {
         lines = credits.Split('\n');
-        Invoke("startDisplayingCredits", delay); 
-
-
+        Invoke("startDisplayingCredits", startDelay); 
     }
 
     void startDisplayingCredits()
@@ -25,8 +23,7 @@ public class SpeechSpawner : MonoBehaviour
     {
         foreach(string line in lines)
         {
-            gc.InstantiateSpeechBubble(delay +" " + line);
-            yield return new WaitForSeconds(delay);  
+            yield return new WaitForSeconds(gc.InstantiateSpeechBubble(line));  
         }
         
     }
