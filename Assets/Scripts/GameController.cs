@@ -198,7 +198,7 @@ public class GameController : MonoBehaviour
         }
         GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(true, true);
 
-        StartCoroutine(MainGame(28, 58));
+        StartCoroutine(MainGame(28, number_of_lines));
 
         yield return null;
     }
