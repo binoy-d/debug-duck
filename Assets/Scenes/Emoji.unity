@@ -347,6 +347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 192879974}
   - component: {fileID: 192879973}
+  - component: {fileID: 192879975}
   m_Layer: 0
   m_Name: Emoji_0
   m_TagString: Untagged
@@ -412,13 +413,32 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192879972}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.942, y: 4.1, z: -1}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.13199997, y: 0.07499999, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 688129051}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &192879975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192879972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f04a8617a8e6d3546a7283dc4f672854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 2793734129704652342, guid: 0703168ebccf13b40a7611d0836c950d, type: 3}
+  - {fileID: -7270817575041114761, guid: 0703168ebccf13b40a7611d0836c950d, type: 3}
+  - {fileID: 8252779638642340288, guid: 0703168ebccf13b40a7611d0836c950d, type: 3}
+  - {fileID: -6611379550295428482, guid: 0703168ebccf13b40a7611d0836c950d, type: 3}
+  - {fileID: 2600608309789540088, guid: 0703168ebccf13b40a7611d0836c950d, type: 3}
+  - {fileID: 5105872417998669553, guid: 0703168ebccf13b40a7611d0836c950d, type: 3}
 --- !u!1 &216131500
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +652,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.47, y: 3.8, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 192879974}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -937,6 +958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SPEECH_BUBBLE: {fileID: 2904400487748923936, guid: b0ef156e82a40eb4dbf96c46ca579230,
     type: 3}
+  FINAL_BUBBLE: {fileID: 0}
   shoot_delay: 0.8
   playGameSequence: 1
   credits: {fileID: 0}

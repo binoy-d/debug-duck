@@ -8,7 +8,6 @@ public class EmojiHandler : MonoBehaviour
     private int health;
     [SerializeField]
     Sprite[] sprites = new Sprite[6];
-
     void Start()
     {
         health = GameObject.Find("GameController").GetComponent<GameController>().getHealth();

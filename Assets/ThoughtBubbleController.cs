@@ -10,17 +10,17 @@ public class ThoughtBubbleController : MonoBehaviour
     Vector3 velocity;
     float xCoord = 0;
     float yCoord = 0;
+    [SerializeField]
     BoxCollider2D m_Collider;
     [SerializeField]
-    int speed = 3;
+    int speed = 8;
+
 
 
     void Start()
     {
 
         velocity = new Vector3(0,0);
-
-        m_Collider = GameObject.Find("thoughtbubblebox").GetComponent<BoxCollider2D>();
 
     }
 
@@ -30,10 +30,10 @@ public class ThoughtBubbleController : MonoBehaviour
         float sample = Mathf.PerlinNoise(xCoord, yCoord);
         float newY = Convert.ToSingle(Mathf.PerlinNoise(xCoord,yCoord)-0.5);
         float newX = Convert.ToSingle(Mathf.PerlinNoise(yCoord,xCoord)-0.5);
-        
 
         velocity = new Vector3(newX,newY);
         if(m_Collider.bounds.Contains(transform.position+velocity*Time.deltaTime*speed)){
+            print("yes, i want to move");
             transform.position+=velocity*Time.deltaTime*speed;
         }
        
