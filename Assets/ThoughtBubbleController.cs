@@ -8,8 +8,8 @@ public class ThoughtBubbleController : MonoBehaviour
 {
     // Start is called before the first frame update
     Vector3 velocity;
-    float xCoord = 0;
-    float yCoord = 0;
+    float xCoord;
+    float yCoord;
     [SerializeField]
     BoxCollider2D m_Collider;
     [SerializeField]
@@ -19,6 +19,9 @@ public class ThoughtBubbleController : MonoBehaviour
 
     void Start()
     {
+        System.Random rnd = new System.Random();
+        xCoord = rnd.Next(1,10)/10;
+        yCoord = rnd.Next(1,10)/10;
 
         velocity = new Vector3(0,0);
 

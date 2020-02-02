@@ -8,6 +8,7 @@ TagManager:
   - TopBoundary
   - BotBoundary
   - End
+  - BlackScreen
   layers:
   - Default
   - TransparentFX

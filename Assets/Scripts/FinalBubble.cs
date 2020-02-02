@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class FinalBubble : MonoBehaviour
 {
@@ -49,8 +50,11 @@ public class FinalBubble : MonoBehaviour
     
     private string[] lines;
 
+    [SerializeField] private GameObject black;
+
     void Start()
     {
+        black = GameObject.FindGameObjectWithTag("BlackScreen");
         startY = Random.value * maxY * 2 - maxY;
         sin_y_offset = startY;
         transform.position = new Vector2(transform.position.x, startY);
@@ -86,6 +90,14 @@ public class FinalBubble : MonoBehaviour
             transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp * Mathf.Sin(transform.position.x));
     }
 
+    private IEnumerator FadeBlack()
+    {
+        black.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
+        black.GetComponent<Image>().CrossFadeAlpha(1, 0.3f, false);
+        black.GetComponent<Image>().CrossFadeAlpha(0, 0.3f, false);
+        yield return null;
+    }
+
     private void UpdateText()
     {
         if (use_alt)
@@ -95,6 +107,10 @@ public class FinalBubble : MonoBehaviour
             if (curr_txt+1  == alt_txt.Length)
             {
                 sprite.color = Color.green;
+            }
+            else if (curr_txt == alt_txt.Length -3)
+            {
+                StartCoroutine(FadeBlack());
             }
         }
 
