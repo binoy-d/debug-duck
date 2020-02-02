@@ -10,7 +10,8 @@ public class Controller : MonoBehaviour
     private float speed = 10;
     [SerializeField]
     private GameObject _bullet;
-    
+    [SerializeField]
+    public  GameObject programmer;
     private GameObject current;
 
     private bool can_move_horizontal = false;
@@ -64,9 +65,16 @@ public class Controller : MonoBehaviour
         can_move_horizontal = a;
         can_move_vertical = b;
     }
-
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag!="Bullet"){
+            programmer.UpdateHealth();
+        }
+    }
     public void SetShootDelay(float d)
     {
         shoot_delay = d;
     }
+
+    
 }
