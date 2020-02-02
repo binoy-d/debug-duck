@@ -1,5 +1,5 @@
-0-Hello uhm… Rubber Duck!
-0+She’s mocking me. What kinda anniversary gift is a rubber duck? / She just wants me to do better… by practicing Rubber Duck Debugging.
+3-Hello uhm… Rubber Duck!
+0+I cant believe I'm talking to you. She’s mocking me. What kinda anniversary gift is a rubber duck? / She just wants me to do better… by practicing Rubber Duck Debugging.
 3-Nice, I got shooting to work - first try.
 5-But I’ve been having trouble getting it to move up and down. 
 5-I guess this is where you come in, huh Ducky? 
