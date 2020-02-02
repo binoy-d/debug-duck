@@ -21,7 +21,7 @@
 4-*It’s totally fine. We can play Smash some other time.* 
 4-*Oh he’s gonna teach you? That’s so cool. I hope you two have lots of fun.*  
 7-*Yeah, I wouldn’t pass up the opportunity to play with a Nintendo Developer either haha.* 
-4-*ahem* 
+6-*ahem* 
 4-*Okay, where were we? 
 4-Oh yeah, debugging the horizontal movement! 
 4-The problem’s probably here: 
