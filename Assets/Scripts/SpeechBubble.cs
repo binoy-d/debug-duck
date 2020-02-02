@@ -154,7 +154,7 @@ public class SpeechBubble : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Bullet" && isInteractable)
+        if (other.tag == "Bullet" && isInteractable && done_typing)
         {
             Destroy(other.gameObject);
             //Destroy(gameObject);
@@ -165,6 +165,8 @@ public class SpeechBubble : MonoBehaviour
         }
         else if (other.tag == "End")
             Destroy(gameObject);
+        else if (other.tag == "Bullet" && isInteractable)
+            Destroy(other.gameObject);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
