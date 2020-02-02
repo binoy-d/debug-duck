@@ -11,11 +11,11 @@ public class SpeechBubble : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] float pause_time = 0.5f;
-    private bool can_move = false;
+    private bool can_move = true;
 
     [SerializeField] float spd = 5f;
     [SerializeField] int movement_scheme = 0;
-    private int num_schemes = 2;
+    private int num_schemes = 3;
 
     private float angle = 0f;
     [SerializeField] float sin_y_offset = 0f;
@@ -26,12 +26,12 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] private float d_width = 4f;
     [SerializeField] private float w_scale = 2f;
     [SerializeField] private float h_scale = 4f;
-    private TextMeshPro text_mesh;
+    [SerializeField] private TextMeshPro text_mesh;
     private float width;
     private float height;
 
-    private Transform bubble;
-    private BoxCollider2D b_collider;
+    [SerializeField] private Transform bubble;
+    [SerializeField] private BoxCollider2D b_collider;
 
     [Header("State")]
     [SerializeField] private bool isInteractable = false;
@@ -40,21 +40,13 @@ public class SpeechBubble : MonoBehaviour
     private bool use_alt = false;
     private string alt_txt = "";
 
+    private bool done_typing = false;
+
     void Start()
     {
-        text_mesh = transform.GetChild(1).GetComponent<TextMeshPro>();
-        text_mesh.text = "";
-        bubble = transform.GetChild(0).GetComponent<Transform>();
-        b_collider = transform.GetChild(0).GetComponent<BoxCollider2D>();
-
-        if (!isInteractable)
-            b_collider.enabled = false;
-
         startY = Random.value * maxY*2 - maxY;
         sin_y_offset = startY;
         transform.position = new Vector2(transform.position.x, startY);
-
-        movement_scheme = (int)(Random.value * num_schemes + 1) % num_schemes;
     }
 
     void Update()
@@ -65,15 +57,17 @@ public class SpeechBubble : MonoBehaviour
 
     private void Move()
     {
-        if (!can_move)
+        if (!can_move || !done_typing)
             return;
 
         angle += sin_freq * Time.deltaTime;
         angle = angle % 360;
 
         if (movement_scheme == 0)
-            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp * Mathf.Sin(angle));
+            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset);
         else if (movement_scheme == 1)
+            transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp * Mathf.Sin(angle));
+        else if (movement_scheme == 2)
             transform.position = new Vector2(transform.position.x - spd * Time.deltaTime, sin_y_offset + sin_amp/Mathf.PI * Mathf.Asin(Mathf.Sin(angle)));
     }
 
@@ -95,10 +89,38 @@ public class SpeechBubble : MonoBehaviour
 
     public void SetText(string txt)
     {
-        string[] lines = txt.Split('/');
-        TEXT = lines[0].Substring(1);
-        alt_txt = lines[1].Substring(0, lines[1].Length - 1);
+        if (isInteractable)
+        {
+            string[] lines = txt.Split('/');
+            TEXT = lines[0];
+            alt_txt = lines[1];
+        }
+        else
+        {
+            TEXT = txt;
+        }
         StartCoroutine(TypeText());
+    }
+
+    public void SetCanMove(bool canmove)
+    {
+        can_move = canmove;
+    }
+
+    public void SetInteractable(bool interactable)
+    {
+        isInteractable = interactable;
+
+        if (!isInteractable)
+        {
+            b_collider.enabled = false;
+            movement_scheme = 0;
+        }
+        else
+        {
+            b_collider.enabled = true;
+            movement_scheme = (int)(Random.value * num_schemes + 1) % num_schemes;
+        }
     }
 
     private IEnumerator TypeText()
@@ -110,9 +132,14 @@ public class SpeechBubble : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(pause_time);
-        can_move = true;
+        done_typing = true;
 
         yield return null;
+    }
+
+    private void AltText()
+    {
+        current_txt = alt_txt;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -120,7 +147,10 @@ public class SpeechBubble : MonoBehaviour
         if (other.tag == "Bullet")
         {
             Destroy(other.gameObject);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            can_move = true;
+            AltText();
+            SetInteractable(false);
         }
     }
 }

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2904400486977228206}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 2904400487748923943}
   m_RootOrder: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TEST
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0428fe9f64e105469652fe5411ea5ee, type: 2}
   m_sharedMaterial: {fileID: 2727158563497892080, guid: a0428fe9f64e105469652fe5411ea5ee,
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -290,13 +290,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2904400487638975851}
-    characterCount: 4
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -369,7 +369,10 @@ MonoBehaviour:
   d_width: 5
   w_scale: 2
   h_scale: 5
-  isInteractable: 1
+  text_mesh: {fileID: 2904400487638975851}
+  bubble: {fileID: 2904400486977228205}
+  b_collider: {fileID: 2904400486977228204}
+  isInteractable: 0
 --- !u!50 &2904400487748923941
 Rigidbody2D:
   serializedVersion: 4

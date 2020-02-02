@@ -1,4 +1,11 @@
-[I dont wanna make this game/I'm gonnna make this game! ]
-[The player movement is broken/The player can move by pressing W and S]
-[Why is the shooting reversed??/Great, now the shooting works!]
-[]
+%Menu Screen Loop
+-Hello uhm… Rubber Duck!
+-There better not be a hidden camera in this.
+-She wouldn’t do that to me, would she? 
++She’s mocking me. What kind of anniversary gift is a rubber duck?/She just wants me to succeed in my career. Her programmer friends told her good things about Rubber Duck Debugging.
+&jump main sequence
+%/menu screen loop
+%main sequence
+Nice, I got shooting to work, first try.
+But how can I get you to move left to right?
+Lets see, the code is
