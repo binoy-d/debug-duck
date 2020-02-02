@@ -160,7 +160,7 @@ public class GameController : MonoBehaviour
     {
         if (programmer_health <= 0)
         {
-            SceneManager.LoadScene("Testing");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         //DEBUG CONTROLS
