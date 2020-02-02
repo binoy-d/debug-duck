@@ -66,12 +66,14 @@ public class Controller : MonoBehaviour
         can_move_horizontal = a;
         can_move_vertical = b;
     }
+    /*
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag!="Bullet"){
             gameController.GetComponent<GameController>().UpdateHealth();
         }
     }
+    */
     public void SetShootDelay(float d)
     {
         shoot_delay = d;
