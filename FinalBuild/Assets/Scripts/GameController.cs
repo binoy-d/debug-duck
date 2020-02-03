@@ -1,0 +1,258 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.IO;
+using UnityEngine.SceneManagement;
+
+public class GameController : MonoBehaviour
+{
+    [SerializeField] private GameObject SPEECH_BUBBLE = null;
+    [SerializeField] private GameObject FINAL_BUBBLE = null;
+    [SerializeField] private GameObject JukeBox = null;
+
+    private List<string> allLines = new List<string>();
+
+    private bool intro_done = false;
+
+    private int programmer_health = 6;
+
+    private LineParser lp;
+    [SerializeField] float shoot_delay = 0.8f;
+    public bool playGameSequence = true;
+
+    [SerializeField] GameObject credits;
+
+    private float waitTime = 0f;
+
+    [SerializeField] GameObject programmer_sprite = null;
+    [SerializeField] GameObject paused = null;
+
+    int number_of_lines;
+    
+    public static GameController instance = null;
+
+    void Start()
+
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad((gameObject));
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        lp = GetComponent<LineParser>();
+        number_of_lines = 0;
+        LoadAllText("Assets/lines.txt");
+
+        if(playGameSequence)
+            StartCoroutine(Intro());
+    }
+    public int getHealth(){
+        return programmer_health;
+    }
+    public void LoadAllText(string file_name)
+    {
+        StreamReader reader = new StreamReader(file_name);
+
+        string line = reader.ReadLine();
+        do
+        {
+            allLines.Add(line);
+            line = reader.ReadLine();
+            number_of_lines++;
+        } while (line != null);
+        reader.Close();
+    }
+
+    private GameObject InstantiateSpeechBubbleGO(string s)
+    {
+        GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
+        sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
+        sb.GetComponent<SpeechBubble>().SetText(s.Substring(2));
+        waitTime = lp.TimeBeforeLine(s);
+        return sb;
+    }
+
+    public float InstantiateSpeechBubble(string s)
+    {
+        GameObject sb = GameObject.Instantiate(SPEECH_BUBBLE);
+        sb.GetComponent<SpeechBubble>().SetInteractable(lp.LineIsInteractable(s));
+        sb.GetComponent<SpeechBubble>().SetText(s.Substring(2));
+        return lp.TimeBeforeLine(s);
+    }
+
+    private IEnumerator MainGame(int start, int end)
+    {
+        GameObject fb = null;
+        float tt = 0f;
+        for (int i = start; i < end-2; i++)
+        {
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "" && i != end - 3)
+            {
+                float time = InstantiateSpeechBubble(t);
+                yield return new WaitForSeconds(time);
+            }
+            else if (i == end-3)
+            {
+                fb = GameObject.Instantiate(FINAL_BUBBLE);
+                fb.GetComponent<FinalBubble>().SetInteractable(true);
+                fb.GetComponent<FinalBubble>().SetText(t.Substring(2));
+                tt = lp.TimeBeforeLine(t);
+            }
+        }
+        
+        JukeBox.GetComponent<JukeBox>().Pause();
+        JukeBox.GetComponent<JukeBox>().PlayOminous();
+        yield return new WaitForSeconds(tt);
+        
+        while(fb != null && !fb.GetComponent<FinalBubble>().GetHit())
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        for (int i = end-2; i < end; i++)
+        {
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "")
+            {
+                float time = InstantiateSpeechBubble(t);
+                yield return new WaitForSeconds(time);
+            }
+        }
+        
+        JukeBox.GetComponent<JukeBox>().Pause();
+        JukeBox.GetComponent<JukeBox>().PlayUplifting();
+        credits.SetActive(true);
+
+        yield return null;
+    }
+
+
+    private IEnumerator Intro()
+    {
+        JukeBox.GetComponent<JukeBox>().Pause();
+        JukeBox.GetComponent<JukeBox>().PlayArcade();
+        GameObject sb = null;
+        for (int i = 0; i < 2; i++)
+        {
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "")
+            {
+                sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        sb.GetComponent<SpeechBubble>().SetCanMove(false);
+        while (!intro_done)
+        {
+            sb.GetComponent<SpeechBubble>().SetY(0f);
+            yield return new WaitForSeconds(0.5f);
+            intro_done = sb == null;
+        }
+
+        for (int i = 2; i < 7; i++)
+        {
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "")
+            {
+                sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        while (sb != null && !sb.GetComponent<SpeechBubble>().GetHit())
+        {
+            sb.GetComponent<SpeechBubble>().SetY(0f);
+            yield return new WaitForSeconds(0.5f);
+        }
+        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(false, true);
+
+        for (int i = 7; i < 14; i++)
+        {
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "")
+            {
+                sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        while (sb != null && !sb.GetComponent<SpeechBubble>().GetHit())
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetShootDelay(shoot_delay);
+
+        for (int i = 14; i < 28; i++)
+        {
+            if (i == 18)
+            {
+                while (programmer_sprite.transform.position.x < 16f)
+                {
+                    programmer_sprite.transform.position = new Vector2(programmer_sprite.transform.position.x + Time.deltaTime * 50f,
+                        programmer_sprite.transform.position.y);
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+            else if (i == 23)
+            {
+                while (programmer_sprite.transform.position.x > 9.3f)
+                {
+                    programmer_sprite.transform.position = new Vector2(programmer_sprite.transform.position.x - Time.deltaTime * 50f,
+                        programmer_sprite.transform.position.y);
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+            string t = lp.ParseLine(allLines[i]);
+            if (t != "")
+            {
+                sb = InstantiateSpeechBubbleGO(t);
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        while (sb != null && !sb.GetComponent<SpeechBubble>().GetHit())
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        GameObject.Find("debug_duck_64").GetComponent<Controller>().SetCanMove(true, true);
+        
+
+        StartCoroutine(MainGame(28, number_of_lines));
+
+        yield return null;
+    }
+
+    public void UpdateHealth()
+    {
+        programmer_health--;
+    }
+
+    private void Update()
+    {
+        if (programmer_health <= 0)
+        {
+            programmer_health = 6;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(Intro());
+        }
+
+        //DEBUG CONTROLS
+
+        if (Input.GetKeyDown(KeyCode.RightBracket))
+        {
+            float f = Time.timeScale * 2;
+            Time.timeScale = f >= 100f ? 100f : f;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
+            Time.timeScale *= 0.5f;
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+        paused.SetActive(Time.timeScale == 0f);
+    }
+}
