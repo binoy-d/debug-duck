@@ -1,0 +1,16 @@
+{
+"companyName": "DefaultCompany",
+"productName": "DebugDuck",
+"productVersion": "0.1",
+"dataUrl": "ActualFinalReall.data.unityweb",
+"wasmCodeUrl": "ActualFinalReall.wasm.code.unityweb",
+"wasmFrameworkUrl": "ActualFinalReall.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.3.0f6"
+}
