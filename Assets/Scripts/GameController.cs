@@ -68,54 +68,52 @@ public class GameController : MonoBehaviour
         reader.Close();*/
 
         string t = @"4-Hello uhm… Rubber Duck!
-0 + She’s mocking me.What kinda anniversary gift is a rubber duck ? / She just wants me to do better… by practicing Rubber Duck Debugging.
-3 - Nice, I got shooting to work - first try.
-5 - But I’ve been having trouble getting it to move up and down.
-  5 - I guess this is where you come in, huh Ducky? 
-3 - So my code goes… 
-0 +if (verticalPressed) position.y + moveAmount; / if (verticalPressed) position.y += moveAmount
-  3 - Okay, now they can move with the up - down keys.
-  3 - But I can’t believe I missed that.
-  2 - This is like the simplest thing. 
-3 - (And without you Ducky, I probably would’ve taken twice as long…) 
-3 - Okay deep breaths. Let’s see oh my, the shooting is broken
-  3 - That fire rate is CLEARLY overpowered. 
-2 - Let’s see, how can we cripple the player ?
-  4 + void update() { reloadCooldown -= Time.time; } / void update() { reloadCooldown -= Time.deltaTime }
-        m,vb
-  3 - Don’t worry, being a mess is endearing.
-  4 - Or so I’ve been told.
-  2 - Okay, Duck, time to shoot for the stars. Can we -
-    4 - One second I gotta take this call.
-    2 - *Yeah of course, don’t worry about it.*
-    2 - *No no no, don’t apologize.*
-    3 - *It’s totally fine.We can play Smash some other time.*
-    3 - *Oh he’s gonna teach you ? That’s so cool.I hope you two have lots of fun.*
-    4 - *Yeah, I wouldn’t pass up the opportunity to play with a Nintendo Developer either haha.*
-    1 - *ahem *
-    3 - *Okay, where were we ?
-    3 - Oh yeah, debugging the horizontal movement!
-    1 - The problem’s probably here: 
-2 +if (false && horzontal) position.x += moveAmount; if (horizontalPressed) position.x += moveAmount / if (horizontalPressed) position.x += moveAmount; if (horizontalPressed) position.x += moveAmount
-  4 + I can’t compete with him. As a smash player and a partner. / They’re just friends.There’s a reason she’s with me.
-  5 + int numMovementAxis = 1; / int numMovementAxis = 2;
-        2 + Did he skip work to be with her? He’s gotta have ulterior motives. / He probably just wants to unwind after crunch season.
-3 + dettectMoreKeyes(); / detectMoreKeys();
-        6 + What does she even see in me? I talk to a Rubber Duck.He talks to Masahiro Sakurai. / We tend to be our own worst critic.I’ve gotta be nicer to myself. 
-3 - Whew.That took a while.
- 3 - But we did it Ducky!We’re on our way!
-  2 - Let’s keep it up. Next bug: Sprite Swapping!
-    2 - Let’s see, it goes
-  6 + void OnCatharsis() { spriteRenderer.sprite == trueForm; } / void OnCatharsis() { spriteRenderer.sprite = trueForm; }
-        4 - Oh boy, looks like that’s not the only thing wrong. 
-4 - There’s so many bugs everywhere.
-  1 + If(vulnerabilityAttitude == attitudes.ccomfoseat) { OpenUp(); } / If(vulnerabilityAttitude == attitudes.comfortable) { OpenUp(); }
-        1 + void Update() { honesty +; } / void Update() { honesty++; }
-        6 +private insecurity[] insecurities; / public insecurity[] insecurities;
+0+She’s mocking me.What kinda anniversary gift is a rubber duck ? / She just wants me to do better… by practicing Rubber Duck Debugging.
+3-Nice, I got shooting to work - first try.
+5-But I’ve been having trouble getting it to move up and down.
+5-I guess this is where you come in, huh Ducky? 
+3-So my code goes… 
+0+if (verticalPressed) position.y + moveAmount; / if (verticalPressed) position.y += moveAmount
+3-Okay, now they can move with the up - down keys.
+3-But I can’t believe I missed that.
+2-This is like the simplest thing. 
+3-(And without you Ducky, I probably would’ve taken twice as long…) 
+3-Okay deep breaths. Let’s see oh my, the shooting is broken
+3-That fire rate is CLEARLY overpowered. 
+2-Let’s see, how can we cripple the player ?
+4+void update() { reloadCooldown -= Time.time; } / void update() { reloadCooldown -= Time.deltaTime }
+3-Don’t worry, being a mess is endearing.
+4-Or so I’ve been told.
+2-Okay, Duck, time to shoot for the stars. Can we -
+4-One second I gotta take this call.
+2-*Yeah of course, don’t worry about it.*
+2-*No no no, don’t apologize.*
+3-*It’s totally fine.We can play Smash some other time.*
+3-*Oh he’s gonna teach you ? That’s so cool.I hope you two have lots of fun.*
+4-*Yeah, I wouldn’t pass up the opportunity to play with a Nintendo Developer either haha.*
+1-*ahem *
+3-*Okay, where were we ?
+3-Oh yeah, debugging the horizontal movement!
+1-The problem’s probably here: 
+2+if (false && horzontal) position.x += moveAmount; if (horizontalPressed) position.x += moveAmount / if (horizontalPressed) position.x += moveAmount; if (horizontalPressed) position.x += moveAmount
+4+I can’t compete with him. As a smash player and a partner. / They’re just friends.There’s a reason she’s with me.
+5+int numMovementAxis = 1; / int numMovementAxis = 2;
+2+Did he skip work to be with her? He’s gotta have ulterior motives. / He probably just wants to unwind after crunch season.
+3+dettectMoreKeyes(); / detectMoreKeys();
+6+What does she even see in me? I talk to a Rubber Duck.He talks to Masahiro Sakurai. / We tend to be our own worst critic.I’ve gotta be nicer to myself. 
+3-Whew.That took a while.
+3-But we did it Ducky!We’re on our way!
+2-Let’s keep it up. Next bug: Sprite Swapping!
+2-Let’s see, it goes
+6+void OnCatharsis() { spriteRenderer.sprite == trueForm; } / void OnCatharsis() { spriteRenderer.sprite = trueForm; }
+4-Oh boy, looks like that’s not the only thing wrong. 
+4-There’s so many bugs everywhere.
+1+If(vulnerabilityAttitude == attitudes.ccomfoseat) { OpenUp(); } / If(vulnerabilityAttitude == attitudes.comfortable) { OpenUp(); }
+1+void Update() { honesty +; } / void Update() { honesty++; }
+6+private insecurity[] insecurities; / public insecurity[] insecurities;
 4-Okay, all those typoes are fixed
-4 - But for some reason it’s still crashing ?
-1 +while(notGoodEnough) { struggle();
-} / while(notGoodEnough) { break; struggle(); }
+4-But for some reason it’s still crashing ?
+1+while(notGoodEnough) { struggle(); } / while(notGoodEnough) { break; struggle(); }
 1+while(notGoodEnough) { struggle(); } / while(notGoodEnough) { break; struggle(); }
 2+while(notGoodEnough) { struggle(); } / while(notGoodEnough) { break; struggle(); }
 4-Argh, why doesn’t this work?? 
